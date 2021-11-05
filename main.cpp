@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -12,35 +13,43 @@ struct ListNode {
 
 class Solution {
 public:
-  bool isPalindrome(ListNode *head) {
-    auto ih = *head;
-    int len = 1;
-    while (head->next != nullptr) {
-      len++;
+  ListNode* reverseList(ListNode* head) {
+    if (head == nullptr) {
+      return head;
+    }
+
+    vector<int> values = vector<int>();
+    while (true) {
+      values.push_back(head->val);
+      if (head->next == nullptr) {
+        break;
+      }
       head = head->next;
     }
 
-    auto a = new int[len];
-    a[0] = ih.val;
-    for (int i = 1; i < len; ++i) {
-      ih = *ih.next;
-      a[i] = ih.val;
+    reverse(values.begin(), values.end());
+
+    auto* first = new ListNode(values[0]);
+    auto* prev = first;
+    for (int i = 1; i < values.size(); ++i) {
+      auto* tmp = new ListNode(values[i]);
+      prev->next = tmp;
+      prev = tmp;
     }
 
-    int r = len - 1;
-    for (int l = 0; l < len; ++l) {
-      if (l == r) {break;}
-      if (a[l] != a[r]) {return false;}
-      r--;
-    }
-
-    return true;
+    return first;
   }
 };
 
 int main() {
-  auto* x = new ListNode(1, new ListNode(2, new ListNode(2, new ListNode(1))));
+  auto* x = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4))));
+  auto* r = (new Solution())->reverseList(x);
 
-  cout << ((new Solution())->isPalindrome(x) ? "true" : "false") << endl;
+  while (true) {
+    cout << r->val << endl;
+    if (r->next == nullptr) {break;}
+    r = r->next;
+  }
+
   return 0;
 }
