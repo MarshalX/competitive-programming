@@ -23,7 +23,7 @@ public:
     }
   }
 
-  ListNode* reverseList(ListNode* head) {
+  ListNode* reverseBetween(ListNode* head, int left, int right) {
     if (head == nullptr) {
       return head;
     }
@@ -36,15 +36,15 @@ public:
       head = head->next;
     }
 
-    reverse(values.begin(), values.end());
+    reverse(values.begin() + left - 1, values.end() - (values.size() - right));
 
     return getNextNode(0);
   }
 };
 
 int main() {
-  auto* x = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4))));
-  auto* r = (new Solution())->reverseList(x);
+  auto* x = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
+  auto* r = (new Solution())->reverseBetween(x, 2, 4);
 
   while (true) {
     cout << r->val << endl;
