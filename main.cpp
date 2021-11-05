@@ -13,12 +13,21 @@ struct ListNode {
 
 class Solution {
 public:
+  vector<int> values = vector<int>();
+
+  ListNode* getNextNode(int n) {
+    if (n != values.size()) {
+      return new ListNode(values[n], getNextNode(n + 1));
+    } else {
+      return nullptr;
+    }
+  }
+
   ListNode* reverseList(ListNode* head) {
     if (head == nullptr) {
       return head;
     }
 
-    vector<int> values = vector<int>();
     while (true) {
       values.push_back(head->val);
       if (head->next == nullptr) {
@@ -29,15 +38,7 @@ public:
 
     reverse(values.begin(), values.end());
 
-    auto* first = new ListNode(values[0]);
-    auto* prev = first;
-    for (int i = 1; i < values.size(); ++i) {
-      auto* tmp = new ListNode(values[i]);
-      prev->next = tmp;
-      prev = tmp;
-    }
-
-    return first;
+    return getNextNode(0);
   }
 };
 
