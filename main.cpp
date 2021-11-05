@@ -1,56 +1,46 @@
 #include <iostream>
 #include <vector>
+#include <map>
 
 using namespace std;
 
-struct ListNode {
-  int val;
-  ListNode *next;
-  ListNode() : val(0), next(nullptr) {}
-  ListNode(int x) : val(x), next(nullptr) {}
-  ListNode(int x, ListNode *next) : val(x), next(next) {}
-};
 
 class Solution {
 public:
-  vector<int> values = vector<int>();
+  map<char, int> m = map<char, int>{
+      {'I', 1},
+      {'V', 5},
+      {'X', 10},
+      {'L', 50},
+      {'C', 100},
+      {'D', 500},
+      {'M', 1000},
+  };
 
-  ListNode* getNextNode(int n) {
-    if (n != values.size()) {
-      return new ListNode(values[n], getNextNode(n + 1));
-    } else {
-      return nullptr;
-    }
-  }
+  int romanToInt(string s) {
+    int number = 0;
+    for (int i = 0; i < s.length(); ++i) {
+      char next = i == s.length() - 1 ? '-' : s[i + 1];
 
-  ListNode* reverseBetween(ListNode* head, int left, int right) {
-    if (head == nullptr) {
-      return head;
-    }
-
-    while (true) {
-      values.push_back(head->val);
-      if (head->next == nullptr) {
-        break;
+      if (
+          (s[i] == 'I' && (next == 'V' || next == 'X')) |
+          (s[i] == 'X' && (next == 'L' || next == 'C')) |
+          (s[i] == 'C' && (next == 'D' || next == 'M'))
+          ) {
+        number -= m[s[i]];
+      } else {
+        number += m[s[i]];
       }
-      head = head->next;
     }
 
-    reverse(values.begin() + left - 1, values.end() - (values.size() - right));
-
-    return getNextNode(0);
+    return number;
   }
 };
 
 int main() {
-  auto* x = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
-  auto* r = (new Solution())->reverseBetween(x, 2, 4);
-
-  while (true) {
-    cout << r->val << endl;
-    if (r->next == nullptr) {break;}
-    r = r->next;
-  }
+  cout << (new Solution())->romanToInt("LVIII") << endl;
+  cout << (new Solution())->romanToInt("IV") << endl;
+  cout << (new Solution())->romanToInt("MCMXCIV") << endl;
 
   return 0;
 }
