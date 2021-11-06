@@ -7,43 +7,39 @@
 using namespace std;
 
 
-class Solution {
+class UndergroundSystem {
 public:
-  string longestCommonPrefix(vector<string>& strs) {
-    if (strs.size() == 1) {
-      return strs[0];
+  map<string, pair<int, int>> timeDB;
+  map<int, pair<string, int>> userDB;
+
+  UndergroundSystem() {
+
+  }
+
+  void checkIn(int id, string stationName, int t) {
+    userDB[id] = {stationName, t};
+  }
+
+  void checkOut(int id, string stationName, int t) {
+    string key = userDB[id].first + "_" + stationName;
+    if (timeDB.find(key) == timeDB.end()) {
+      timeDB[key] = {t - userDB[id].second, 1};
+    } else {
+      timeDB[key] = {
+          timeDB[key].first + t - userDB[id].second,
+          timeDB[key].second + 1
+      };
     }
+    userDB.erase(id);
+  }
 
-    int minLen = 201;
-    for (auto &i: strs) {
-      minLen = min(minLen, (int)i.length());
-    }
-
-    string res = "";
-    bool isEnd = false;
-    for (int i = 0; i < minLen; ++i) {
-      char cur = strs[0][i];
-      for (int j = 1; j < strs.size(); ++j) {
-        if (cur != strs[j][i]) { isEnd = true; break; }
-        if (j == strs.size() - 1) { res += cur; }
-      }
-
-      if (isEnd) {
-        break;
-      }
-    }
-
-    return res;
+  double getAverageTime(string startStation, string endStation) {
+    string key = startStation + "_" + endStation;
+    return (double)timeDB[key].first / timeDB[key].second;
   }
 };
 
 int main() {
-  auto v = vector<string>{"flower","flow","flight"};
-  auto v1 = vector<string>{"dog","racecar","car"};
-  auto v3 = vector<string>{"cir","car"};
-  cout << Solution().longestCommonPrefix(v) << endl;
-  cout << Solution().longestCommonPrefix(v1) << endl;
-  cout << Solution().longestCommonPrefix(v3) << endl;
 
   return 0;
 }
