@@ -9,70 +9,59 @@ using namespace std;
 
 class Solution {
 public:
-  map<int, char> m = map<int, char>{
-      {1000, 'M'},
-      {500, 'D'},
-      {100, 'C'},
-      {50, 'L'},
-      {10, 'X'},
-      {5, 'V'},
-      {1, 'I'},
-  };
+  const int size = 9;
+  const int subSize = 3;
+  vector<vector<int>> b = vector<vector<int>>();
 
-  map<int, string> exc = map<int, string>{
-    {4, "IV"},
-    {40, "XL"},
-    {400, "CD"},
+  bool isValidCell(int x, int y) {
+    for (int i = 0; i < size; ++i) {
+      if (b[x][i] == b[x][y] && y != i) {
+        return false;
+      }
 
-    {9, "IX"},
-    {90, "XC"},
-    {900, "CM"},
-  };
-
-  string intToRoman(int num) {
-    string s = to_string(num);
-    vector<string> resParts = {"", "", "", ""};
-
-    for (int i = s.length() - 1; i >= 0; --i) {
-      int n = s[i] - '0';
-      int rank = s.length() - i - 1;
-      int e = pow(10, rank);
-
-      int nn = n * e;
-      if (exc.find(nn) != exc.end()) {
-        resParts[i] = exc[nn];
-      } else {
-        string tmp = "";
-        int da = nn;
-        for (auto p = m.rbegin(); p != m.rend(); ++p) {
-          if (da >= p->first) {
-            int k = da / p->first;
-            da -= p->first * k;
-            for (int j = 0; j < k; ++j) {
-              tmp += p->second;
-            }
-          }
-        }
-
-        resParts[i] = tmp;
-      };
+      if (b[i][y] == b[x][y] && x != i) {
+        return false;
+      }
     }
 
-    stringstream ss;
-    ss << resParts[0] << resParts[1] << resParts[2] << resParts[3];
-    return ss.str();
+    int xStart = x / subSize;
+    int yStart = y / subSize;
+    for (int j = xStart * 3; j < xStart * subSize + subSize; ++j) {
+      for (int k = yStart * 3; k < yStart * subSize + subSize; ++k) {
+        if (b[j][k] == b[x][y] && (j != x && k != y)) {
+          return false;
+        }
+      }
+    }
+
+    return true;
+  }
+
+  bool isValidSudoku(vector<vector<char>>& board) {
+    for (int i = 0; i < board.size(); ++i) {
+      b.emplace_back();
+      for (int j = 0; j < board[i].size(); ++j) {
+        if (board[i][j] == '.') {
+          b[i].push_back(0);
+        }  else {
+          b[i].push_back(board[i][j] - '0');
+        }
+      }
+    }
+
+    for (int i = 0; i < b.size(); ++i) {
+      for (int j = 0; j < b[i].size(); ++j) {
+        if (b[i][j] != 0 && !isValidCell(i, j)) {
+          return false;
+        }
+      }
+    }
+
+    return true;
   }
 };
 
 int main() {
-  cout << (new Solution())->intToRoman(1) << endl; // II
-  cout << (new Solution())->intToRoman(2) << endl; // II
-  cout << (new Solution())->intToRoman(3) << endl; // III
-  cout << (new Solution())->intToRoman(58) << endl; // LVIII
-  cout << (new Solution())->intToRoman(4) << endl; // IV
-  cout << (new Solution())->intToRoman(1994) << endl; // MCMXCIV
-  cout << (new Solution())->intToRoman(2994) << endl; // MMCMXCIV
-  cout << (new Solution())->intToRoman(3594) << endl; // MMMDXCIV
 
   return 0;
 }
