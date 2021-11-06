@@ -9,82 +9,41 @@ using namespace std;
 
 class Solution {
 public:
-  const int size = 9;
-  const int subSize = 3;
-  vector<vector<int>> b = vector<vector<int>>();
-
-  vector<int> getAvailable(int x, int y) {
-    vector<int> avail = vector<int>(10);
-    fill(avail.begin(), avail.end(), 0);
-    avail[0] = 1;
-
-    for (int i = 0; i < size; ++i) {
-      avail[b[x][i]] = 1;
-      avail[b[i][y]] = 1;
+  string longestCommonPrefix(vector<string>& strs) {
+    if (strs.size() == 1) {
+      return strs[0];
     }
 
-    int xStart = x / subSize;
-    int yStart = y / subSize;
-    for (int j = xStart * 3; j < xStart * subSize + subSize; ++j) {
-      for (int k = yStart * 3; k < yStart * subSize + subSize; ++k) {
-        avail[b[j][k]] = 1;
+    int minLen = 201;
+    for (auto &i: strs) {
+      minLen = min(minLen, (int)i.length());
+    }
+
+    string res = "";
+    bool isEnd = false;
+    for (int i = 0; i < minLen; ++i) {
+      char cur = strs[0][i];
+      for (int j = 1; j < strs.size(); ++j) {
+        if (cur != strs[j][i]) { isEnd = true; break; }
+        if (j == strs.size() - 1) { res += cur; }
+      }
+
+      if (isEnd) {
+        break;
       }
     }
 
-    return avail;
-  }
-
-  bool solver(int x, int y) {
-    if ((x == size - 1) && (y == size)) {
-      return true;
-    }
-
-    if (y == size) {
-      y = 0;
-      x += 1;
-    }
-
-    if (b[x][y] == 0) {
-      auto avail = getAvailable(x, y);
-      for (int i = 1; i < 10 ; ++i) {
-        if (avail[i] == 0) {
-          b[x][y] = i;
-          if (solver(x, y + 1)) {
-            return true;
-          }
-        }
-      }
-
-      b[x][y] = 0;
-      return false;
-    }
-
-    return solver(x, y + 1);
-  }
-
-  void solveSudoku(vector<vector<char>>& board) {
-    for (int i = 0; i < board.size(); ++i) {
-      b.emplace_back();
-      for (int j = 0; j < board[i].size(); ++j) {
-        if (board[i][j] == '.') {
-          b[i].push_back(0);
-        }  else {
-          b[i].push_back(board[i][j] - '0');
-        }
-      }
-    }
-
-    solver(0, 0);
-
-    for (int i = 0; i < board.size(); ++i) {
-      for (int j = 0; j < board[i].size(); ++j) {
-        board[i][j] = b[i][j] + '0';
-      }
-    }
+    return res;
   }
 };
 
 int main() {
+  auto v = vector<string>{"flower","flow","flight"};
+  auto v1 = vector<string>{"dog","racecar","car"};
+  auto v3 = vector<string>{"cir","car"};
+  cout << Solution().longestCommonPrefix(v) << endl;
+  cout << Solution().longestCommonPrefix(v1) << endl;
+  cout << Solution().longestCommonPrefix(v3) << endl;
 
   return 0;
 }
