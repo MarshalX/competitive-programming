@@ -3,39 +3,28 @@
 #include <map>
 #include <cmath>
 #include <sstream>
+#include <set>
 
 using namespace std;
 
 
-class UndergroundSystem {
+class Solution {
 public:
-  map<string, pair<int, int>> timeDB;
-  map<int, pair<string, int>> userDB;
-
-  UndergroundSystem() {
-
-  }
-
-  void checkIn(int id, string stationName, int t) {
-    userDB[id] = {stationName, t};
-  }
-
-  void checkOut(int id, string stationName, int t) {
-    string key = userDB[id].first + "_" + stationName;
-    if (timeDB.find(key) == timeDB.end()) {
-      timeDB[key] = {t - userDB[id].second, 1};
-    } else {
-      timeDB[key] = {
-          timeDB[key].first + t - userDB[id].second,
-          timeDB[key].second + 1
-      };
+  vector<string> stringMatching(vector<string>& words) {
+    vector<string> res;
+    set<string> u;
+    for (int i = 0; i < words.size(); ++i) {
+      for (int j = 0; j < words.size(); ++j) {
+        if (i == j) { continue; }
+        if (words[i].find(words[j]) != -1) {
+          if (u.find(words[j]) == u.end()) {
+            u.insert(words[j]);
+            res.push_back(words[j]);
+          }
+        }
+      }
     }
-    userDB.erase(id);
-  }
-
-  double getAverageTime(string startStation, string endStation) {
-    string key = startStation + "_" + endStation;
-    return (double)timeDB[key].first / timeDB[key].second;
+    return res;
   }
 };
 
