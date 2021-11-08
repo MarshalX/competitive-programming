@@ -9,29 +9,49 @@
 using namespace std;
 
 
+struct ListNode {
+   int val;
+   ListNode *next;
+   ListNode() : val(0), next(nullptr) {}
+   ListNode(int x) : val(x), next(nullptr) {}
+   ListNode(int x, ListNode *next) : val(x), next(next) {}
+};
+
+
 class Solution {
 public:
-  int removeElement(vector<int>& nums, int val) {
-    int k = 0;
+  ListNode* removeElements(ListNode* head, int val) {
+    ListNode* start = nullptr;
+    ListNode* res = nullptr;
 
-    if (nums.empty()) {
-      return k;
+    if (head == nullptr) {
+      return res;
     }
 
-    for (int i = 0; i < nums.size(); ++i) {
-      if (nums[i] != val) {
-        nums[k] = nums[i];
-        k++;
+    while (head != nullptr) {
+      if (head->val != val) {
+        if (res == nullptr) {
+          start = res = new ListNode(head->val);
+        } else {
+          res->next = new ListNode(head->val);
+          res = res->next;
+        }
       }
+
+      head = head->next;
     }
 
-    return k;
+    return start;
   }
 };
 
 int main() {
-  vector<int> v = {0, 1, 2, 2, 3, 0, 4, 2};
-  cout << Solution().removeElement(v, 2) << endl;
+  auto* h = new ListNode(1, new ListNode(2, new ListNode(6, new ListNode(3, new ListNode(4, new ListNode(5, new ListNode(6)))))));
+  auto* r = Solution().removeElements(h, 6);
+  while (r != nullptr) {
+    cout << r->val << " ";
+    r = r->next;
+  }
 
   return 0;
 }
