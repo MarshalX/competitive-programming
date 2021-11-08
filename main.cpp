@@ -11,30 +11,27 @@ using namespace std;
 
 class Solution {
 public:
-  int removeDuplicates(vector<int>& nums) {
+  int removeElement(vector<int>& nums, int val) {
     int k = 0;
 
     if (nums.empty()) {
       return k;
     }
 
-    for (int i = 0; i < nums.size() - 1; ++i) {
-      if (nums[i] != nums[i + 1]) {
+    for (int i = 0; i < nums.size(); ++i) {
+      if (nums[i] != val) {
+        nums[k] = nums[i];
         k++;
-        nums[k] = nums[i + 1];
       }
     }
 
-    return k + 1;
+    return k;
   }
 };
 
 int main() {
-  vector<int> v = {1, 1, 1, 1, 1, 1};
-//  vector<int> v = {1, 1, 2};
-//  vector<int> v = {1, 2};
-//  vector<int> v = {0, 0, 1, 1, 1, 2, 2, 3, 3, 4};
-  cout << Solution().removeDuplicates(v) << endl;
+  vector<int> v = {0, 1, 2, 2, 3, 0, 4, 2};
+  cout << Solution().removeElement(v, 2) << endl;
 
   return 0;
 }
