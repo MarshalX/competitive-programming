@@ -11,36 +11,30 @@ using namespace std;
 
 class Solution {
 public:
-  map<char, char> m = {
-      {'(', ')'},
-      {'[', ']'},
-      {'{', '}'},
-  };
+  int removeDuplicates(vector<int>& nums) {
+    int k = 0;
 
-  bool isValid(string s) {
-    stack<char> st = stack<char>();
-    for (int i = 0; i < s.length(); ++i) {
-      if (m.find(s[i]) != m.end()) {
-        st.push(s[i]);
-      } else {
-        if (st.empty()) {
-          return false;
-        }
+    if (nums.empty()) {
+      return k;
+    }
 
-        if (m[st.top()] != s[i]) {
-          return false;
-        }
-        st.pop();
+    for (int i = 0; i < nums.size() - 1; ++i) {
+      if (nums[i] != nums[i + 1]) {
+        k++;
+        nums[k] = nums[i + 1];
       }
     }
 
-    return st.empty();
+    return k + 1;
   }
 };
 
 int main() {
-  cout << Solution().isValid("()") << endl;
-  cout << Solution().isValid("]") << endl;
+  vector<int> v = {1, 1, 1, 1, 1, 1};
+//  vector<int> v = {1, 1, 2};
+//  vector<int> v = {1, 2};
+//  vector<int> v = {0, 0, 1, 1, 1, 2, 2, 3, 3, 4};
+  cout << Solution().removeDuplicates(v) << endl;
 
   return 0;
 }
