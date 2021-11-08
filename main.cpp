@@ -20,37 +20,29 @@ struct ListNode {
 
 class Solution {
 public:
-  ListNode* removeElements(ListNode* head, int val) {
-    ListNode* start = nullptr;
-    ListNode* res = nullptr;
-
-    if (head == nullptr) {
-      return res;
-    }
-
-    while (head != nullptr) {
-      if (head->val != val) {
-        if (res == nullptr) {
-          start = res = new ListNode(head->val);
-        } else {
-          res->next = new ListNode(head->val);
-          res = res->next;
-        }
+  void deleteNode(ListNode* node) {
+    ListNode* prev = node;
+    bool isFirst = true;
+    while (node->next != nullptr) {
+      if (!isFirst) {
+        prev = prev->next;
+      } else {
+        isFirst = false;
       }
 
-      head = head->next;
+      node->val = node->next->val;
+      node = node->next;
     }
-
-    return start;
+    prev->next = nullptr;
   }
 };
 
 int main() {
-  auto* h = new ListNode(1, new ListNode(2, new ListNode(6, new ListNode(3, new ListNode(4, new ListNode(5, new ListNode(6)))))));
-  auto* r = Solution().removeElements(h, 6);
-  while (r != nullptr) {
-    cout << r->val << " ";
-    r = r->next;
+  auto* h = new ListNode(4, new ListNode(5, new ListNode(1, new ListNode(9))));
+  Solution().deleteNode(h->next);
+  while (h != nullptr) {
+    cout << h->val << " ";
+    h = h->next;
   }
 
   return 0;
