@@ -9,40 +9,36 @@
 using namespace std;
 
 
-struct ListNode {
-   int val;
-   ListNode *next;
-   ListNode() : val(0), next(nullptr) {}
-   ListNode(int x) : val(x), next(nullptr) {}
-   ListNode(int x, ListNode *next) : val(x), next(next) {}
-};
-
-
 class Solution {
 public:
-  void deleteNode(ListNode* node) {
-    ListNode* prev = node;
-    bool isFirst = true;
-    while (node->next != nullptr) {
-      if (!isFirst) {
-        prev = prev->next;
-      } else {
-        isFirst = false;
+  int getNonZeroPos(vector<int>& nums, int cur) {
+    for (int i = cur; i < nums.size(); ++i) {
+      if (nums[i] != 0) {
+        return i;
       }
-
-      node->val = node->next->val;
-      node = node->next;
     }
-    prev->next = nullptr;
+
+    return -1;
+  }
+
+  void moveZeroes(vector<int>& nums) {
+    for (int i = 0; i < nums.size() - 1; ++i) {
+      if (nums[i] == 0) {
+        int nonZero = getNonZeroPos(nums, i + 1);
+        if (nonZero != -1) {
+          nums[i] = nums[nonZero];
+          nums[nonZero] = 0;
+        }
+      }
+    }
   }
 };
 
 int main() {
-  auto* h = new ListNode(4, new ListNode(5, new ListNode(1, new ListNode(9))));
-  Solution().deleteNode(h->next);
-  while (h != nullptr) {
-    cout << h->val << " ";
-    h = h->next;
+  vector<int> v = {0, 1, 0, 3, 12};
+  Solution().moveZeroes(v);
+  for (auto &i: v) {
+    cout << i << " ";
   }
 
   return 0;
