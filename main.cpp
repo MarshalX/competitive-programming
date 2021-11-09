@@ -21,9 +21,7 @@ public:
       }
     }
 
-    for (int i = nums.size() - 1; i > nums.size() - 1 - zeroCount; --i) {
-      nums[i] = 0;
-    }
+    memset(&nums[nums.size()- zeroCount], 0, sizeof(int) * zeroCount);
   }
 };
 
