@@ -11,27 +11,29 @@ using namespace std;
 
 class Solution {
 public:
-  void moveZeroes(vector<int>& nums) {
-    int zeroCount = 0;
-    for (int i = 0; i < nums.size(); ++i) {
-      if (nums[i] == 0) {
-        zeroCount += 1;
-      } else  {
-        nums[i - zeroCount] = nums[i];
+  int minStartValue(vector<int>& nums) {
+    int res = 1;
+    int sum = 0;
+    for (int num : nums) {
+      sum += num;
+      if (sum < 1) {
+        int tmp = sum * - 1 + 1;
+        if (tmp > res) {
+          res = tmp;
+        }
       }
     }
-
-    memset(&nums[nums.size()- zeroCount], 0, sizeof(int) * zeroCount);
+    return res;
   }
 };
 
 int main() {
-  vector<int> v = {0};
-//  vector<int> v = {0, 1, 0, 3, 12};
-  Solution().moveZeroes(v);
-  for (auto &i: v) {
-    cout << i << " ";
-  }
+  vector<int> v = {-3, 2, -3, 4, 2};
+  vector<int> v2 = {1, -2, -3};
+  vector<int> v3 = {1, 2};
+  cout << Solution().minStartValue(v) << endl;
+  cout << Solution().minStartValue(v2) << endl;
+  cout << Solution().minStartValue(v3) << endl;
 
   return 0;
 }
