@@ -11,29 +11,30 @@ using namespace std;
 
 class Solution {
 public:
-  int minStartValue(vector<int>& nums) {
-    int res = 1;
-    int sum = 0;
-    for (int num : nums) {
-      sum += num;
-      if (sum < 1) {
-        int tmp = sum * - 1 + 1;
-        if (tmp > res) {
-          res = tmp;
-        }
+  int maxArea(vector<int>& height) {
+    int res = 0;
+    for (int i = 0; i < height.size(); ++i) {
+      for (int j = i + 1; j < height.size(); ++j) {
+        res = max(res, min(height[i], height[j]) * (j - i));
       }
     }
+
     return res;
   }
 };
 
+
 int main() {
-  vector<int> v = {-3, 2, -3, 4, 2};
-  vector<int> v2 = {1, -2, -3};
-  vector<int> v3 = {1, 2};
-  cout << Solution().minStartValue(v) << endl;
-  cout << Solution().minStartValue(v2) << endl;
-  cout << Solution().minStartValue(v3) << endl;
+//  vector<int> v = {1, 8, 6, 2, 5, 4, 8, 3, 7};
+//  vector<int> v = {1, 1};
+//  vector<int> v = {4, 3, 2, 1, 4};
+//  vector<int> v = {1, 2, 1};
+//  vector<int> v = {2, 3, 4, 5, 18, 17, 6};
+//  vector<int> v = {2, 1};
+  vector<int> v = {1, 3, 2, 5, 25, 24, 5};
+  vector<int> v2 = {1, 2, 3, 4, 5, 25, 24, 3, 4};
+  cout << Solution().maxArea(v) << endl;
+  cout << Solution().maxArea(v2) << endl;
 
   return 0;
 }
