@@ -12,11 +12,31 @@ using namespace std;
 class Solution {
 public:
   int maxArea(vector<int>& height) {
-    int res = 0;
+    int l = 0;
+    int r = height.size() - 1;
+
+    int res = min(height[l], height[r]) * (r - l);
+
     for (int i = 0; i < height.size(); ++i) {
-      for (int j = i + 1; j < height.size(); ++j) {
-        res = max(res, min(height[i], height[j]) * (j - i));
+      if (height[l] < height[r]) {
+        if (height[i] > height[l]) {
+          l = i;
+        }
+      } else if (height[l] > height[r]) {
+        if (height[i] > height[r]) {
+          r = i;
+        }
+      } else {
+        // TODO
+        if (height[i] > height[l]) {
+          l = i;
+        } else if (height[i] > height[r]) {
+          r = i;
+        }
       }
+
+      res = max(res, min(height[l], height[r]) * (r - l));
+      cout << i << " " << res << " " << l << " " << r << " " << height[l] << " " << height[r] << endl;
     }
 
     return res;
