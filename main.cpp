@@ -11,41 +11,33 @@ using namespace std;
 
 class Solution {
 public:
-  int maxArea(vector<int>& height) {
-    int res = 0;
+  int strStr(string haystack, string needle) {
+    if (needle.empty()) {
+      return 0;
+    }
 
-    int l = 0;
-    int r = height.size() - 1;
+    int startIndex;
+    for (int i = 0; i < haystack.length(); ++i) {
+      startIndex = i;
+      for (int j = 0; j < needle.length(); ++j) {
+         if (i + j > haystack.length() - 1) { break; }
 
-    while (l < r) {
-      int hl = height[l];
-      int hr = height[r];
-
-      res = max(res, min(height[l], height[r]) * (r - l));
-
-      if (hl < hr) {
-        l++;
-      } else {
-        r--;
+        if (haystack[i + j] != needle[j]) {
+          break;
+        } else if (j == needle.length() - 1) {
+          return startIndex;
+        }
       }
     }
 
-    return res;
+    return -1;
   }
 };
 
 
 int main() {
-//  vector<int> v = {1, 8, 6, 2, 5, 4, 8, 3, 7};
-//  vector<int> v = {1, 1};
-//  vector<int> v = {4, 3, 2, 1, 4};
-//  vector<int> v = {1, 2, 1};
-//  vector<int> v = {2, 3, 4, 5, 18, 17, 6};
-//  vector<int> v = {2, 1};
-  vector<int> v = {1, 3, 2, 5, 25, 24, 5};
-  vector<int> v2 = {1, 2, 3, 4, 5, 25, 24, 3, 4};
-  cout << Solution().maxArea(v) << endl;
-  cout << Solution().maxArea(v2) << endl;
+  cout << Solution().strStr("ooo", "ooooooooo") << endl;
+  cout << Solution().strStr("hello", "ll") << endl;
 
   return 0;
 }
