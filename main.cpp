@@ -16,40 +16,39 @@ public:
       return 0;
     }
 
-    auto t = vector<int>(needle.length());
+    auto p = vector<int>(needle.length());
 
-    int pos = 1;
-    int cnd = 0;
+    int i = 1;
+    int j = 0;
 
-    t[0] = -1;
-    while (pos < needle.length()) {
-      if (needle[pos] == needle[cnd]) {
-        t[pos] = t[cnd];
+    p[0] = 0;
+    while (i < needle.length()) {
+      if (needle[i] == needle[j]) {
+        p[i] = j + 1;
+        i++; j++;
       } else {
-        t[pos] = cnd;
-        while (cnd >= 0 && needle[pos] != needle[cnd]) {
-          cnd = t[cnd];
+        if (j == 0) {
+          p[i] = 0;
+          i++;
+        } else {
+          j = p[j - 1];
         }
       }
-
-      pos++;
-      cnd++;
     }
 
-    int j = 0;
-    int k = 0;
-    while (j < haystack.length()) {
-      if (needle[k] == haystack[j]) {
-        j++;
-        k++;
-        if (k == needle.length()) {
-          return j - k;
+    i = 0;
+    j = 0;
+    while (i < haystack.length()) {
+      if (haystack[i] == needle[j]) {
+        i++; j++;
+        if (j == needle.length()) {
+          return i - j;
         }
       } else {
-        k = t[k];
-        if (k < 0) {
-          j++;
-          k++;
+        if (j > 0) {
+          j = p[j - 1];
+        } else {
+          i++;
         }
       }
     }
