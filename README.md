@@ -9,6 +9,7 @@
 ## Алгосы
 
 - **KMP** — поиск подстроки в строке за O(m + n). Встретился в [28](https://github.com/MarshalX/LeetCode/blob/6b2a5be0d03e7b7219645f8841f24beba80f036c/main.cpp). [Брутфорс](https://github.com/MarshalX/LeetCode/blob/614c1ef638e04804b348ad9463c20f4e8378e32f/main.cpp) ушёл в TL. Алгос списал с псевдокода на вики: [Knuth–Morris–Pratt algorithm](https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm).
+- **Prefix sum** — [быстрый ответ](https://github.com/MarshalX/LeetCode/blob/b86ddc27fc22820f2fc1d3e4008ddc2c2471e454/main.cpp) на множество вопросов "Какая сумма на подмассиве от L до R?" (pref[0] = a[0]; pref[i] = pref[i - 1] + a[i]. Q: pref[r] - pref[l -1] или pref[r] если l == 0).
 
 ## Заметки
 
