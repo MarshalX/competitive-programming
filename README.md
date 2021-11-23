@@ -18,8 +18,8 @@
 - Долго мучался с [11](https://github.com/MarshalX/LeetCode/blob/f96b815b378244118cc62b853dd1bc79579aad16/main.cpp) (бассейн с двумя бортиками). [Брутфорс](https://github.com/MarshalX/LeetCode/blob/eea774a355ef010ab415128eb5095d2616fdc5d6/main.cpp) конечно не зашёл, прочитал подсказки, частично дорешал, не справившись отловить баг пошёл в обсуждения к задаче. Посмотря на чужой код понял, что нафантазировал ненужные дополнительные условия ([diff](https://github.com/MarshalX/LeetCode/commit/f96b815b378244118cc62b853dd1bc79579aad16#diff-608d8de3fba954c50110b6d7386988f27295de845e9d7174e40095ba5efcf1bb)). В итоге списал с чужого кода, но свою ошибку понял (кажется).
 
 ## Ссылки на почитать
-- [] [Maximum subarray problem (Kadane's algorithm)](https://en.wikipedia.org/wiki/Maximum_subarray_problem). LeetCode [53](https://leetcode.com/problems/maximum-subarray/).
-- [] [Sliding Window Technique](https://quanticdev.com/algorithms/dynamic-programming/sliding-window/)
+- [ ] [Maximum subarray problem (Kadane's algorithm)](https://en.wikipedia.org/wiki/Maximum_subarray_problem). LeetCode [53](https://leetcode.com/problems/maximum-subarray/)
+- [ ] [Sliding Window Technique](https://quanticdev.com/algorithms/dynamic-programming/sliding-window/)
 - [x] [Префиксные суммы. XOR. Задачи на запросы](https://brestprog.by/topics/prefixsums/)
 
 ## Ссылки на посмотреть
