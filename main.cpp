@@ -35,12 +35,8 @@ public:
       s.emplace(i.second, i.first);
     }
 
-    int max = -1;
+    int max = s.rbegin()->first;
     for (auto i = s.rbegin(); i != s.rend(); ++i) {
-      if (max == -1) {
-        max = i->first;
-      }
-
       if (i->first < max) {
         break;
       }
