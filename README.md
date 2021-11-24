@@ -1,4 +1,4 @@
-# LeetCode
+# Competitive Programming
 
 > Я просто хочу пройти алгоритмический собес 🥺
 
@@ -6,11 +6,13 @@
 
 Кроме этого сформирую базу ссылок того что читал/смотрел/изучал.
 
+На текущий момент основная платформа LeetCode.
+
 ## Алгоритмы
 
 - **KMP** — поиск подстроки в строке за O(m + n). Встретился в [28](https://github.com/MarshalX/LeetCode/blob/6b2a5be0d03e7b7219645f8841f24beba80f036c/main.cpp). [Брутфорс](https://github.com/MarshalX/LeetCode/blob/614c1ef638e04804b348ad9463c20f4e8378e32f/main.cpp) ушёл в TL. Алгос списал с псевдокода на вики: [Knuth–Morris–Pratt algorithm](https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm).
 - **Prefix sum** — [быстрый ответ](https://github.com/MarshalX/LeetCode/blob/b86ddc27fc22820f2fc1d3e4008ddc2c2471e454/main.cpp) на множество вопросов "Какая сумма на подмассиве от L до R?" (pref[0] = a[0]; pref[i] = pref[i - 1] + a[i]. Q: pref[r] - pref[l -1] или pref[r] если l == 0).
-- **Kadane's algorithm** — TODO.
+- **Kadane's algorithm** — подмассив с [наибольшей суммой](https://github.com/MarshalX/LeetCode/blob/7ab975a6852e5a156f724c54e15bbf8316dcc0d7/main.cpp) (tSum += a[i]; tSum = max(tSum, a[i]); res = max(res, tSum)).
 
 ## Заметки
 
@@ -18,7 +20,7 @@
 - Долго мучался с [11](https://github.com/MarshalX/LeetCode/blob/f96b815b378244118cc62b853dd1bc79579aad16/main.cpp) (бассейн с двумя бортиками). [Брутфорс](https://github.com/MarshalX/LeetCode/blob/eea774a355ef010ab415128eb5095d2616fdc5d6/main.cpp) конечно не зашёл, прочитал подсказки, частично дорешал, не справившись отловить баг пошёл в обсуждения к задаче. Посмотря на чужой код понял, что нафантазировал ненужные дополнительные условия ([diff](https://github.com/MarshalX/LeetCode/commit/f96b815b378244118cc62b853dd1bc79579aad16#diff-608d8de3fba954c50110b6d7386988f27295de845e9d7174e40095ba5efcf1bb)). В итоге списал с чужого кода, но свою ошибку понял (кажется).
 
 ## Ссылки на почитать
-- [ ] [Maximum subarray problem (Kadane's algorithm)](https://en.wikipedia.org/wiki/Maximum_subarray_problem). LeetCode [53](https://leetcode.com/problems/maximum-subarray/)
+- [x] [Maximum subarray problem (Kadane's algorithm)](https://en.wikipedia.org/wiki/Maximum_subarray_problem). LeetCode [53](https://leetcode.com/problems/maximum-subarray/)
 - [ ] [Sliding Window Technique](https://quanticdev.com/algorithms/dynamic-programming/sliding-window/)
 - [x] [Префиксные суммы. XOR. Задачи на запросы](https://brestprog.by/topics/prefixsums/)
 
