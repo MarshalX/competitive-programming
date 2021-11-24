@@ -11,37 +11,22 @@ using namespace std;
 
 class Solution {
 public:
-  int findShortestSubArray(vector<int>& nums) {
-    auto m = map<int, int>();
-    auto start = map<int, int>();
-    auto stop = map<int, int>();
-    int res = 50000;
+  int maxProfit(vector<int>& prices) {
+    int l = 0;
+    int r = prices.size() - 1;
 
-    for (int j = 0; j < nums.size(); ++j) {
-      if (m.find(nums[j]) == m.end()) {
-        m[nums[j]] = 1;
+    int res = 0;
+    while (l < r) {
+      int lS = prices[l];
+      int rS = prices[r];
+
+      res = max(res, rS - lS);
+
+      if (rS - lS < 0) {
+        l++;
       } else {
-        m[nums[j]] += 1;
+        r--;
       }
-
-      if (start.find(nums[j]) == start.end()) {
-        start[nums[j]] = j;
-      }
-      stop[nums[j]] = j;
-    }
-
-    std::set<std::pair<int, int>> s;
-    for (auto const &i : m) {
-      s.emplace(i.second, i.first);
-    }
-
-    int max = s.rbegin()->first;
-    for (auto i = s.rbegin(); i != s.rend(); ++i) {
-      if (i->first < max) {
-        break;
-      }
-
-      res = min(res, stop[i->second] - start[i->second] + 1);
     }
 
     return res;
@@ -50,12 +35,14 @@ public:
 
 
 int main() {
-  auto v = vector<int>{1, 2, 2, 3, 1}; // 2
-  auto v1 = vector<int>{1, 2, 2, 3, 1, 4, 2}; // 6
-  auto v2 = vector<int>{1}; // 1
-  cout << Solution().findShortestSubArray(v) << endl;
-  cout << Solution().findShortestSubArray(v1) << endl;
-  cout << Solution().findShortestSubArray(v2) << endl;
+  auto v = vector<int>{7, 1, 5, 3, 6, 4}; // 5
+  auto v1 = vector<int>{7, 6, 4, 3, 1}; // 0
+  auto v2 = vector<int>{1}; // 0
+  auto v3 = vector<int>{2, 1, 4}; // 3
+  cout << Solution().maxProfit(v) << endl;
+  cout << Solution().maxProfit(v1) << endl;
+  cout << Solution().maxProfit(v2) << endl;
+  cout << Solution().maxProfit(v3) << endl;
 
   return 0;
 }
