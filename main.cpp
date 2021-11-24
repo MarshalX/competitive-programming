@@ -13,14 +13,21 @@ class Solution {
 public:
   int findShortestSubArray(vector<int>& nums) {
     auto m = map<int, int>();
+    auto start = map<int, int>();
+    auto stop = map<int, int>();
     int res = 50000;
 
-    for (int n:nums) {
-      if (m.find(n) == m.end()) {
-        m[n] = 1;
+    for (int j = 0; j < nums.size(); ++j) {
+      if (m.find(nums[j]) == m.end()) {
+        m[nums[j]] = 1;
       } else {
-        m[n] += 1;
+        m[nums[j]] += 1;
       }
+
+      if (start.find(nums[j]) == start.end()) {
+        start[nums[j]] = j;
+      }
+      stop[nums[j]] = j;
     }
 
     std::set<std::pair<int, int>> s;
@@ -38,18 +45,7 @@ public:
         break;
       }
 
-      int start = -1;
-      int stop = -1;
-      for (int j = 0; j < nums.size(); ++j) {
-        if (start == -1 && nums[j] == i->second) {
-          start = j;
-        }
-        if (nums[j] == i->second) {
-          stop = j;
-        }
-      }
-
-      res = min(res, stop - start + 1);
+      res = min(res, stop[i->second] - start[i->second] + 1);
     }
 
     return res;
