@@ -13,13 +13,10 @@ using namespace std;
 class Solution {
 public:
   vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
-    priority_queue<pair<int, int>> powers;
+    priority_queue<pair<int, int>,vector<pair<int, int>>,greater<pair<int, int>>> powers;
 
-    int tPower;
     for (int i = 0; i < mat.size(); ++i) {
       powers.push({count(mat[i].begin(), mat[i].end(), 1), i});
-
-      if (powers.size() > k) powers.pop();
     }
 
     vector<int> res;
@@ -30,7 +27,6 @@ public:
       powers.pop();
     }
 
-    reverse(res.begin(), res.end());
     return res;
   }
 };
@@ -46,8 +42,8 @@ int main() {
                                 {1, 0},
                                 {1, 0},
                                 {1, 1}};
-//  auto r = Solution().kWeakestRows(v, 3);
-  auto r = Solution().kWeakestRows(v1, 4);
+  auto r = Solution().kWeakestRows(v, 3);
+//  auto r = Solution().kWeakestRows(v1, 4);
   for (int n:r) {
     cout << n << " ";
   }
