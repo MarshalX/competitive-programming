@@ -16,19 +16,7 @@ public:
 
     int tPower;
     for (int i = 0; i < mat.size(); ++i) {
-      tPower = 0;
-      for (int j = 0; j < mat[i].size(); ++j) {
-        if (mat[i][j] == 1) {
-          tPower++;
-        } else {
-          powers[i] = tPower;
-          break;
-        }
-
-        if (j == mat[i].size() - 1) {
-          powers[i] = tPower;
-        }
-      }
+      powers[i] = count(mat[i].begin(), mat[i].end(), 1);
     }
 
     set<pair<int, int>> s;
