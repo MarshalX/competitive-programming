@@ -5,6 +5,7 @@
 #include <sstream>
 #include <set>
 #include <stack>
+#include <queue>
 
 using namespace std;
 
@@ -12,25 +13,24 @@ using namespace std;
 class Solution {
 public:
   vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
-    map<int, int> powers;
+    priority_queue<pair<int, int>> powers;
 
     int tPower;
     for (int i = 0; i < mat.size(); ++i) {
-      powers[i] = count(mat[i].begin(), mat[i].end(), 1);
-    }
+      powers.push({count(mat[i].begin(), mat[i].end(), 1), i});
 
-    set<pair<int, int>> s;
-    for (const auto kv: powers) {
-      s.emplace(kv.second, kv.first);
+      if (powers.size() > k) powers.pop();
     }
 
     vector<int> res;
-    for (const auto & i : s) {
+    while (!powers.empty()) {
       if (k == 0) break;
       k--;
-      res.push_back(i.second);
+      res.push_back(powers.top().second);
+      powers.pop();
     }
 
+    reverse(res.begin(), res.end());
     return res;
   }
 };
@@ -46,8 +46,8 @@ int main() {
                                 {1, 0},
                                 {1, 0},
                                 {1, 1}};
-  auto r = Solution().kWeakestRows(v, 3);
-//  auto r = Solution().kWeakestRows(v1, 4);
+//  auto r = Solution().kWeakestRows(v, 3);
+  auto r = Solution().kWeakestRows(v1, 4);
   for (int n:r) {
     cout << n << " ";
   }
