@@ -12,34 +12,45 @@ using namespace std;
 
 class Solution {
 public:
-  int countCharacters(vector<string>& words, string chars) {
-    map<char, int> m;
-    for (const char c: chars) {
-      m[c]++;
+  string addStrings(string num1, string num2) {
+    auto num = num2;
+    auto numM = num1;
+    if (num1.length() > num2.length()) {
+      num = num1;
+      numM = num2;
+    }
+    auto numMin = min(num1.length(), num2.length());
+
+    int longPos = num.length();
+    int tmp = 0;
+    string res;
+    for (int i = numMin - 1; i >= 0; --i) {
+      longPos--;
+
+      int o1 = numM[i] - '0';
+      int o2 = num[longPos] - '0';
+
+      int sum = o1 + o2 + tmp;
+      tmp = sum / 10;
+
+      char t = sum - (tmp * 10) + '0';
+      res = t + res;
+
+      cout << o1 << " " << o2 << " sum=" << sum << " rem=" << tmp << " add=" << t << endl;
     }
 
-    int res = 0;
-    bool toAdd;
-    for (const string& word : words) {
-      for (char c : word) {
-        m[c]--;
-      }
+    for (int i = num.length() - numMin - 1; i >= 0; --i) {
+      int o1 = num[i] - '0';
+      int sum = o1 + tmp;
+      tmp = sum / 10;
 
-      toAdd = true;
-      for (auto kv : m) {
-        if (kv.second < 0) {
-          toAdd = false;
-          break;
-        }
-      }
+      char t = sum - (tmp * 10) + '0';
+      res = t + res;
+    }
 
-      if (toAdd) {
-        res += word.length();
-      }
-
-      for (char c : word) {
-        m[c]++;
-      }
+    if (tmp != 0) {
+      char t = tmp + '0';
+      res = t + res;
     }
 
     return res;
@@ -48,8 +59,14 @@ public:
 
 
 int main() {
-  auto v = vector<string>{"hello","world","leetcode"}; // 10
-  cout << Solution().countCharacters(v, "welldonehoneyr") << endl;
+  cout << Solution().addStrings("11", "123") << endl; // 134
+  cout << Solution().addStrings("13", "129") << endl; // 142
+  cout << Solution().addStrings("131", "129") << endl; // 260
+  cout << Solution().addStrings("1", "2") << endl; // 3
+  cout << Solution().addStrings("1", "22") << endl; // 23
+  cout << Solution().addStrings("11", "2") << endl; // 13
+  cout << Solution().addStrings("11", "22") << endl; // 33
+  cout << Solution().addStrings("1", "9") << endl; // 10
 
   return 0;
 }
