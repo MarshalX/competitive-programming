@@ -19,14 +19,14 @@ public:
     }
 
     int res = 0;
+    bool toAdd;
     for (const string& word : words) {
-      map<char, int> mCopy = m;
       for (char c : word) {
-        mCopy[c]--;
+        m[c]--;
       }
 
-      bool toAdd = true;
-      for (auto kv : mCopy) {
+      toAdd = true;
+      for (auto kv : m) {
         if (kv.second < 0) {
           toAdd = false;
           break;
@@ -35,6 +35,10 @@ public:
 
       if (toAdd) {
         res += word.length();
+      }
+
+      for (char c : word) {
+        m[c]++;
       }
     }
 
