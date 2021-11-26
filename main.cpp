@@ -12,45 +12,40 @@ using namespace std;
 
 class Solution {
 public:
+  static void appendRes(string& s, int n) {
+    s = (char)(n + '0') + s;
+  }
+
   string addStrings(string num1, string num2) {
-    auto num = num2;
-    auto numM = num1;
-    if (num1.length() > num2.length()) {
-      num = num1;
-      numM = num2;
-    }
-    auto numMin = min(num1.length(), num2.length());
+    auto n1 = vector<int>(num1.length());
+    auto n2 = vector<int>(num2.length());
+    for (int i = 0; i < n1.size(); ++i) n1[i] = num1[i] - '0';
+    for (int i = 0; i < n2.size(); ++i) n2[i] = num2[i] - '0';
 
-    int longPos = num.length();
-    int tmp = 0;
+    auto numMax = n2, numMin = n1;
+    if (num1.length() > num2.length()) swap(numMax, numMin);
+
     string res;
-    for (int i = numMin - 1; i >= 0; --i) {
-      longPos--;
 
-      int o1 = numM[i] - '0';
-      int o2 = num[longPos] - '0';
+    int numMaxPos = numMax.size();
+    int appendToNextRank = 0;
+    int tmpSum;
+    for (int i = numMin.size() - 1; i >= 0; --i) {
+      numMaxPos--;
 
-      int sum = o1 + o2 + tmp;
-      tmp = sum / 10;
-
-      char t = sum - (tmp * 10) + '0';
-      res = t + res;
-
-      cout << o1 << " " << o2 << " sum=" << sum << " rem=" << tmp << " add=" << t << endl;
+      tmpSum = numMin[i] + numMax[numMaxPos] + appendToNextRank;
+      appendToNextRank = tmpSum / 10;
+      appendRes(res, tmpSum % 10);
     }
 
-    for (int i = num.length() - numMin - 1; i >= 0; --i) {
-      int o1 = num[i] - '0';
-      int sum = o1 + tmp;
-      tmp = sum / 10;
-
-      char t = sum - (tmp * 10) + '0';
-      res = t + res;
+    for (int i = numMax.size() - numMin.size() - 1; i >= 0; --i) {
+      tmpSum = numMax[i] + appendToNextRank;
+      appendToNextRank = tmpSum / 10;
+      appendRes(res, tmpSum % 10);
     }
 
-    if (tmp != 0) {
-      char t = tmp + '0';
-      res = t + res;
+    if (appendToNextRank != 0) {
+      appendRes(res, appendToNextRank);
     }
 
     return res;
