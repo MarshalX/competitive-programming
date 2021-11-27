@@ -12,7 +12,7 @@ using namespace std;
 
 class Solution {
 public:
-  int pivotIndex(vector<int>& nums) {
+  int findMiddleIndex(vector<int>& nums) {
     vector<int> p;
 
     p.push_back(nums[0]);
@@ -37,12 +37,10 @@ public:
 
 
 int main() {
-  auto v = vector<int>{1, 7, 3, 6, 5, 6};
-  auto v1 = vector<int>{2, 1, -1};
-  auto v3 = vector<int>{2, 1, -1};
-  cout << Solution().pivotIndex(v) << endl;
-  cout << Solution().pivotIndex(v1) << endl;
-  cout << Solution().pivotIndex(v3) << endl;
+  auto v = vector<int>{2, 3, -1, 8, 4};
+  auto v1 = vector<int>{1, -1, 4};
+  cout << Solution().findMiddleIndex(v) << endl;
+  cout << Solution().findMiddleIndex(v1) << endl;
 
   return 0;
 }
