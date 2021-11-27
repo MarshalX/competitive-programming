@@ -10,58 +10,33 @@
 using namespace std;
 
 
-class Solution {
+class NumArray {
 public:
-  static void appendRes(string& s, int n) {
-    s = (char)(n + '0') + s;
+  vector<int> p;
+
+  NumArray(vector<int>& nums) {
+    p.push_back(nums[0]);
+    for (int i = 1; i < nums.size(); ++i) {
+      p.push_back(p[i - 1] + nums[i]);
+    }
   }
 
-  string addStrings(string num1, string num2) {
-    auto n1 = vector<int>(num1.length());
-    auto n2 = vector<int>(num2.length());
-    for (int i = 0; i < n1.size(); ++i) n1[i] = num1[i] - '0';
-    for (int i = 0; i < n2.size(); ++i) n2[i] = num2[i] - '0';
-
-    auto numMax = n2, numMin = n1;
-    if (num1.length() > num2.length()) swap(numMax, numMin);
-
-    string res;
-
-    int numMaxPos = numMax.size();
-    int appendToNextRank = 0;
-    int tmpSum;
-    for (int i = numMin.size() - 1; i >= 0; --i) {
-      numMaxPos--;
-
-      tmpSum = numMin[i] + numMax[numMaxPos] + appendToNextRank;
-      appendToNextRank = tmpSum / 10;
-      appendRes(res, tmpSum % 10);
+  int sumRange(int left, int right) {
+    if (left > 0) {
+      return p[right] - p[left - 1];
+    } else {
+      return p[right];
     }
-
-    for (int i = numMax.size() - numMin.size() - 1; i >= 0; --i) {
-      tmpSum = numMax[i] + appendToNextRank;
-      appendToNextRank = tmpSum / 10;
-      appendRes(res, tmpSum % 10);
-    }
-
-    if (appendToNextRank != 0) {
-      appendRes(res, appendToNextRank);
-    }
-
-    return res;
   }
 };
 
 
 int main() {
-  cout << Solution().addStrings("11", "123") << endl; // 134
-  cout << Solution().addStrings("13", "129") << endl; // 142
-  cout << Solution().addStrings("131", "129") << endl; // 260
-  cout << Solution().addStrings("1", "2") << endl; // 3
-  cout << Solution().addStrings("1", "22") << endl; // 23
-  cout << Solution().addStrings("11", "2") << endl; // 13
-  cout << Solution().addStrings("11", "22") << endl; // 33
-  cout << Solution().addStrings("1", "9") << endl; // 10
+  auto v = vector<int>{-2, 0, 3, -5, 2, -1};
+  auto n = NumArray(v);
+  cout << n.sumRange(0, 2) << endl;
+  cout << n.sumRange(2, 5) << endl;
+  cout << n.sumRange(0, 5) << endl;
 
   return 0;
 }
