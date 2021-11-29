@@ -28,6 +28,8 @@
 - [x] [Полное бинарное дерево. Куча. Очередь с приоритетом](https://brestprog.by/topics/heap/)
 - [ ] [Hamming weight](https://en.wikipedia.org/wiki/Hamming_weight). LeetCode [191](https://github.com/MarshalX/competitive-programming/blob/b05daa0e7889065671c62d4a3267d08e5f94eea7/main.cpp) 
 - [ ] [Custom impl of `__builtin_popcount`](https://stackoverflow.com/questions/52161596/why-is-builtin-popcount-slower-than-my-own-bit-counting-function/52161813) 
+- [ ] [Hamming distance](https://en.wikipedia.org/wiki/Hamming_distance)
+- [ ] [How to count leading zeros in integer](https://stackoverflow.com/questions/23856596/how-to-count-leading-zeros-in-a-32-bit-unsigned-integer)
 
 ## Ссылки на посмотреть
 - [Четыре задачи на два указателя](https://youtu.be/MyWNZJ10zIU)
