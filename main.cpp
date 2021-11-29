@@ -12,21 +12,27 @@ using namespace std;
 
 class Solution {
 public:
-  int hammingDistance(int x, int y) {
-    int res = 0;
-    int num = x ^ y;
-    while (num) {
-      res += num % 2;
-      num = num >> 1;
+  int findComplement(int num) {
+    int res = num;
+
+    int i = 0;
+    while (num != 0) {
+      i++;
+      num >>= 1;
     }
+
+    for (int j = 0; j < i; ++j) {
+      res = res ^ (1 << j);
+    }
+
     return res;
   }
 };
 
 
 int main() {
-  cout << Solution().hammingDistance(1, 4) << endl;
-  cout << Solution().hammingDistance(3, 1) << endl;
+  cout << Solution().findComplement(5) << endl;
+  cout << Solution().findComplement(1) << endl;
 
   return 0;
 }
