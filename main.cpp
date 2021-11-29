@@ -12,25 +12,19 @@ using namespace std;
 
 class Solution {
 public:
-  bool isPowerOfTwo(int n) {
+  int hammingWeight(uint32_t n) {
+    int res = 0;
     for (int i = 0; i < 32; ++i) {
-      if (i == 31 && n < 0) {
-        if (n == (1L << i) - 1) return true;
-      } else if (n == (1 << i)) return true;
+      if ((n & (1 << i))) {
+        res++;
+      }
     }
-
-    return false;
+    return res;
   }
 };
 
 
 int main() {
-  cout << Solution().isPowerOfTwo(1) << endl;
-  cout << Solution().isPowerOfTwo(16) << endl;
-  cout << Solution().isPowerOfTwo(-16) << endl;
-  cout << Solution().isPowerOfTwo(3) << endl;
-  cout << Solution().isPowerOfTwo(-2147483648) << endl; // 0
-  cout << Solution().isPowerOfTwo(2147483647) << endl; // 0
-
+  // rly idk how to run it locally ;d
   return 0;
 }
