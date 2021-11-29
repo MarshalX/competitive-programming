@@ -36,3 +36,5 @@
 - [Хитрая задача на Стек](https://youtu.be/-59FbGWsCgI)
 - [Поиск Знаменитости. Метод двух указателей](https://youtu.be/xGvQN_g-JCI)
 - [Динамическое Программирование: Количество Уникальных Путей](https://youtu.be/GhiRlhPlJ9Q)
+- [What is Bitmasking](https://youtu.be/7FmL-WpTTJ4)
+- [Bitwise Operations tutorial #1 | XOR, Shift, Subsets](https://youtu.be/xXKL9YBWgCY)
