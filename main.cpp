@@ -12,7 +12,10 @@ using namespace std;
 
 class Solution {
 public:
-  vector<vector<int>> subsets(vector<int>& nums) {
+  vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+    sort(nums.begin(), nums.end());
+
+    map<vector<int>, bool> m;
     vector<vector<int>> res;
 
     int size = nums.size();
@@ -24,7 +27,11 @@ public:
         }
       }
 
-      res.push_back(subset);
+      m[subset] = true;
+    }
+
+    for (const auto kv : m) {
+      res.push_back(kv.first);
     }
 
     return res;
@@ -33,10 +40,12 @@ public:
 
 
 int main() {
-  auto v = vector<int>{1, 2, 3};
+  auto v = vector<int>{1, 2, 2};
   auto v1 = vector<int>{0};
-  auto res = Solution().subsets(v);
-//  auto res = Solution().subsets(v1);
+  auto v3 = vector<int>{4, 4, 4, 1, 4};
+//  auto res = Solution().subsetsWithDup(v);
+//  auto res = Solution().subsetsWithDup(v1);
+  auto res = Solution().subsetsWithDup(v3);
 
   for (const auto& r : res) {
     for (const auto i : r) {
