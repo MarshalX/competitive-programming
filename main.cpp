@@ -12,14 +12,29 @@ using namespace std;
 
 class Solution {
 public:
-  int largestAltitude(vector<int>& gain) {
-    int res = 0;
+  vector<int> sumZero(int n) {
+    vector<int> res;
 
-    vector<int> p;
-    p.push_back(0);
-    for (int i = 1; i <= gain.size(); ++i) {
-      p.push_back(p[i - 1] + gain[i - 1]);
-      res = max(res, p.back());
+    int half = n / 2;
+    int tmp = 0;
+
+    int i = 1;
+    for (int j = 0; j < half; ++j) {
+      if (j == half - 1) {
+        int t = abs(tmp - n);
+        if (t < i) t = i;
+        res.push_back(t);
+        res.push_back(-t);
+      } else {
+        res.push_back(i);
+        res.push_back(-i);
+        tmp += i;
+        i++;
+      }
+    }
+
+    if (n % 2 != 0) {
+      res.push_back(0);
     }
 
     return res;
@@ -28,10 +43,13 @@ public:
 
 
 int main() {
-  auto v = vector<int>{-5, 1, 5, 0, -7};
-  auto v1 = vector<int>{-4, -3, -2, -1, 4, 3, 2};
-  cout << Solution().largestAltitude(v) << endl;
-  cout << Solution().largestAltitude(v1) << endl;
+  auto res = Solution().sumZero(5);
+//  auto res = Solution().sumZero(2);
+//  auto res = Solution().sumZero(8);
+
+  for (const int i : res) {
+    cout << i << " ";
+  }
 
   return 0;
 }
