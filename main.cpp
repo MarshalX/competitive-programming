@@ -13,19 +13,10 @@ using namespace std;
 class Solution {
 public:
   int findComplement(int num) {
-    int res = num;
-
-    int i = 0;
-    while (num != 0) {
-      i++;
-      num >>= 1;
-    }
-
-    for (int j = 0; j < i; ++j) {
-      res = res ^ (1 << j);
-    }
-
-    return res;
+    int leadingZerosCount = num ? __builtin_clz(num) : 31;
+    int bitsCount = 32 - leadingZerosCount;
+    for (int i = 0; i < bitsCount; ++i) num = num ^ (1 << i);
+    return num;
   }
 };
 
