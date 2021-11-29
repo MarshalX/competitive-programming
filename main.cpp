@@ -12,40 +12,35 @@ using namespace std;
 
 class Solution {
 public:
-  vector<vector<int>> subsetsWithDup(vector<int>& nums) {
-    sort(nums.begin(), nums.end());
+  void solver(vector<vector<int>>& res, vector<int>& nums, int k) {
+    if (k == nums.size() - 1) {
+      res.emplace_back();
+      res.push_back({nums[k]});
+      return;
+    }
 
-    map<vector<int>, bool> m;
+    solver(res, nums, k + 1);
+    int size = res.size();
+    for (int i = 0; i < size; ++i) {
+      auto t = res[i];
+      t.push_back(nums[k]);
+      res.push_back(t);
+    }
+  }
+
+  vector<vector<int>> subsets(vector<int>& nums) {
     vector<vector<int>> res;
-
-    int size = nums.size();
-    for (int i = 0; i < (1 << size); ++i) {
-      vector<int> subset;
-      for (int j = 0; j < size; ++j) {
-        if (i & (1 << j)) {
-          subset.push_back(nums[j]);
-        }
-      }
-
-      m[subset] = true;
-    }
-
-    for (const auto kv : m) {
-      res.push_back(kv.first);
-    }
-
+    solver(res, nums, 0);
     return res;
   }
 };
 
 
 int main() {
-  auto v = vector<int>{1, 2, 2};
+  auto v = vector<int>{1, 2, 3};
   auto v1 = vector<int>{0};
-  auto v3 = vector<int>{4, 4, 4, 1, 4};
-//  auto res = Solution().subsetsWithDup(v);
-//  auto res = Solution().subsetsWithDup(v1);
-  auto res = Solution().subsetsWithDup(v3);
+  auto res = Solution().subsets(v);
+//  auto res = Solution().subsets(v1);
 
   for (const auto& r : res) {
     for (const auto i : r) {
