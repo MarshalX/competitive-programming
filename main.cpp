@@ -12,35 +12,38 @@ using namespace std;
 
 class Solution {
 public:
-  int findMiddleIndex(vector<int>& nums) {
-    vector<int> p;
+  vector<vector<int>> subsets(vector<int>& nums) {
+    vector<vector<int>> res;
 
-    p.push_back(nums[0]);
-    for (int i = 1; i < nums.size(); ++i) {
-      p.push_back(p[i - 1] + nums[i]);
-    }
-
-    int last = nums.size() - 1;
-    for (int i = 0; i < nums.size(); ++i) {
-      if (i == 0) {
-        if (p[last] - nums[i] == 0) {
-          return 0;
+    int size = nums.size();
+    for (int i = 0; i < (1 << size); ++i) {
+      vector<int> subset;
+      for (int j = 0; j < size; ++j) {
+        if (i & (1 << j)) {
+          subset.push_back(nums[j]);
         }
-      } else if (p[i - 1] == p[last] - p[i]) {
-        return i;
       }
+
+      res.push_back(subset);
     }
 
-    return -1;
+    return res;
   }
 };
 
 
 int main() {
-  auto v = vector<int>{2, 3, -1, 8, 4};
-  auto v1 = vector<int>{1, -1, 4};
-  cout << Solution().findMiddleIndex(v) << endl;
-  cout << Solution().findMiddleIndex(v1) << endl;
+  auto v = vector<int>{1, 2, 3};
+  auto v1 = vector<int>{0};
+  auto res = Solution().subsets(v);
+//  auto res = Solution().subsets(v1);
+
+  for (const auto& r : res) {
+    for (const auto i : r) {
+      cout << i << " ";
+    }
+    cout << endl;
+  }
 
   return 0;
 }
