@@ -26,6 +26,8 @@
 - [ ] [Sliding Window Technique](https://quanticdev.com/algorithms/dynamic-programming/sliding-window/)
 - [x] [Префиксные суммы. XOR. Задачи на запросы](https://brestprog.by/topics/prefixsums/)
 - [x] [Полное бинарное дерево. Куча. Очередь с приоритетом](https://brestprog.by/topics/heap/)
+- [ ] [Hamming weight](https://en.wikipedia.org/wiki/Hamming_weight). LeetCode [191](https://github.com/MarshalX/competitive-programming/blob/b05daa0e7889065671c62d4a3267d08e5f94eea7/main.cpp) 
+- [ ] [Custom impl of `__builtin_popcount`](https://stackoverflow.com/questions/52161596/why-is-builtin-popcount-slower-than-my-own-bit-counting-function/52161813) 
 
 ## Ссылки на посмотреть
 - [Четыре задачи на два указателя](https://youtu.be/MyWNZJ10zIU)
