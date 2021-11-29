@@ -12,10 +12,14 @@ using namespace std;
 
 class Solution {
 public:
-  uint32_t reverseBits(uint32_t n) {
+  int hammingDistance(int x, int y) {
     int res = 0;
     for (int i = 0; i < 32; ++i) {
-      if (n & (1 << i)) res = res ^ (1 << (31 - i));
+      bool e1 = x & (1 << i);
+      bool e2 = y & (1 << i);
+      if (e1 != e2) {
+        res++;
+      }
     }
     return res;
   }
@@ -23,6 +27,8 @@ public:
 
 
 int main() {
-  // rly idk how to run it locally ;d
+  cout << Solution().hammingDistance(1, 4) << endl;
+  cout << Solution().hammingDistance(3, 1) << endl;
+
   return 0;
 }
