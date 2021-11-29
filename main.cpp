@@ -14,12 +14,10 @@ class Solution {
 public:
   int hammingDistance(int x, int y) {
     int res = 0;
-    for (int i = 0; i < 32; ++i) {
-      bool e1 = x & (1 << i);
-      bool e2 = y & (1 << i);
-      if (e1 != e2) {
-        res++;
-      }
+    int num = x ^ y;
+    while (num) {
+      res += num % 2;
+      num = num >> 1;
     }
     return res;
   }
