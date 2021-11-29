@@ -12,42 +12,26 @@ using namespace std;
 
 class Solution {
 public:
-  void solver(vector<vector<int>>& res, vector<int>& nums, int k) {
-    if (k == nums.size() - 1) {
-      res.emplace_back();
-      res.push_back({nums[k]});
-      return;
+  int largestAltitude(vector<int>& gain) {
+    int res = 0;
+
+    vector<int> p;
+    p.push_back(0);
+    for (int i = 1; i <= gain.size(); ++i) {
+      p.push_back(p[i - 1] + gain[i - 1]);
+      res = max(res, p.back());
     }
 
-    solver(res, nums, k + 1);
-    int size = res.size();
-    for (int i = 0; i < size; ++i) {
-      auto t = res[i];
-      t.push_back(nums[k]);
-      res.push_back(t);
-    }
-  }
-
-  vector<vector<int>> subsets(vector<int>& nums) {
-    vector<vector<int>> res;
-    solver(res, nums, 0);
     return res;
   }
 };
 
 
 int main() {
-  auto v = vector<int>{1, 2, 3};
-  auto v1 = vector<int>{0};
-  auto res = Solution().subsets(v);
-//  auto res = Solution().subsets(v1);
-
-  for (const auto& r : res) {
-    for (const auto i : r) {
-      cout << i << " ";
-    }
-    cout << endl;
-  }
+  auto v = vector<int>{-5, 1, 5, 0, -7};
+  auto v1 = vector<int>{-4, -3, -2, -1, 4, 3, 2};
+  cout << Solution().largestAltitude(v) << endl;
+  cout << Solution().largestAltitude(v1) << endl;
 
   return 0;
 }
