@@ -12,18 +12,13 @@ using namespace std;
 
 class Solution {
 public:
-  int findComplement(int num) {
-    int leadingZerosCount = num ? __builtin_clz(num) : 31;
-    int bitsCount = 32 - leadingZerosCount;
-    for (int i = 0; i < bitsCount; ++i) num = num ^ (1 << i);
-    return num;
+  bool isPowerOfTwo(int n) {
+    if (n == -(1L << 31)) return false;
+    return __builtin_popcount(n) == 1;
   }
 };
 
 
 int main() {
-  cout << Solution().findComplement(5) << endl;
-  cout << Solution().findComplement(1) << endl;
-
   return 0;
 }
