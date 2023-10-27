@@ -43,3 +43,6 @@
 - [Динамическое Программирование: Количество Уникальных Путей](https://youtu.be/GhiRlhPlJ9Q)
 - [What is Bitmasking](https://youtu.be/7FmL-WpTTJ4)
 - [Bitwise Operations tutorial #1 | XOR, Shift, Subsets](https://youtu.be/xXKL9YBWgCY)
+- Плейлист [АиСД year2020 s1](https://youtube.com/playlist?list=PLrS21S1jm43jz48qjdfYNpuIPgL3lNJ_o)
+- Что такое sliding window: [Solve subarray problems FASTER (using Sliding Windows)](https://youtu.be/GcW4mgmgSbw)
+- Что такое dynamic programming: [Mastering Dynamic Programming - How to solve any interview problem (Part 1)](https://youtu.be/Hdr64lKQ3e4)
