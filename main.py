@@ -5,7 +5,7 @@ class Solution:
 
         p1 = 0
         p2 = l - 1
-        while p1 < l and p2 > 0:
+        while p1 < l and p2 > 0 and p1 < p2:
             n1 = ord(chars[p1])
             if (n1 < 97 or n1 > 122) and (n1 < 48 or n1 > 57):
                 p1 += 1
