@@ -1,21 +1,28 @@
-import string
-
-
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-        s = s.lower()
+        chars = list(s.lower())
+        l = len(chars)
 
-        chars = list(s)
-        valid_chars = set(string.ascii_lowercase + string.digits)
+        p1 = 0
+        p2 = l - 1
+        while p1 < l and p2 > 0:
+            n1 = ord(chars[p1])
+            if (n1 < 97 or n1 > 122) and (n1 < 48 or n1 > 57):
+                p1 += 1
+                continue
 
-        s1 = ''
-        s2 = ''
-        for char in chars:
-            if char in valid_chars:
-                s1 += char
-                s2 = char + s2
+            n2 = ord(chars[p2])
+            if (n2 < 97 or n2 > 122) and (n2 < 48 or n2 > 57):
+                p2 -= 1
+                continue
 
-        return s1 == s2
+            if chars[p1] != chars[p2]:
+                return False
+
+            p1 += 1
+            p2 -= 1
+
+        return True
 
 
 if __name__ == '__main__':
@@ -23,6 +30,7 @@ if __name__ == '__main__':
         "A man, a plan, a canal: Panama",
         "race a car",
         " ",
+        "aa",
     ]
 
     for case in cases:
