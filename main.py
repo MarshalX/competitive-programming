@@ -1,22 +1,22 @@
 class Solution:
     def isPalindrome(self, s: str) -> bool:
         chars = list(s.lower())
-        l = len(chars)
+        chars_count = len(chars)
 
         p1 = 0
-        p2 = l - 1
-        while p1 < l and p2 > 0 and p1 < p2:
-            n1 = ord(chars[p1])
-            if (n1 < 97 or n1 > 122) and (n1 < 48 or n1 > 57):
+        p2 = chars_count - 1
+        while p1 < chars_count and p2 > 0 and p1 < p2:
+            s1, s2 = chars[p1], chars[p2]
+
+            if not s1.isalnum():
                 p1 += 1
                 continue
 
-            n2 = ord(chars[p2])
-            if (n2 < 97 or n2 > 122) and (n2 < 48 or n2 > 57):
+            if not s2.isalnum():
                 p2 -= 1
                 continue
 
-            if chars[p1] != chars[p2]:
+            if s1 != s2:
                 return False
 
             p1 += 1
