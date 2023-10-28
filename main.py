@@ -1,22 +1,35 @@
+from typing import List
+
+
 class Solution:
-    def fib(self, n: int) -> int:
-        dp = {0: 0, 1: 1}
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        dp = {0: 0}
 
-        for i in range(2, n + 1):
-            dp[i] = dp[i - 1] + dp[i - 2]
+        for i in range(1, amount + 1):
+            for coin in coins:
+                subproblem = i - coin
+                if subproblem < 0 or coin > i:
+                    continue
 
-        return dp[n]
+                cur_min = dp.get(i, float('INF'))
+                prev_min = dp.get(subproblem, float('INF'))
+                dp[i] = min(cur_min, prev_min + 1)
+
+        res = dp.get(amount)
+        if res == float('INF') or res is None:
+            return -1
+
+        return res
 
 
 if __name__ == '__main__':
     cases = [
-        2,
-        3,
-        4,
-        10,
-        11,
-        60
+        ([5], 15),
+        ([1, 2, 5], 11),
+        ([2], 3),
+        ([1], 0),
+        ([470, 35, 120, 81, 121], 9825),
     ]
 
     for case in cases:
-        print(Solution().fib(case))
+        print(Solution().coinChange(case[0], case[1]))
