@@ -1,25 +1,27 @@
 class Solution:
-    def lengthOfLastWord(self, s: str) -> int:
-        res = 0
+    def mySqrt(self, x: int) -> int:
+        left = 0
+        right = x
 
-        n = len(s) - 1
-        while n >= 0:
-            if s[n].isspace() and res != 0:
-                return res
-            if not s[n].isspace():
-                res += 1
+        while left <= right:
+            i = (left + right) // 2
+            s = i * i
 
-            n -= 1
+            if s == x:
+                return i
 
-        return res
+            if s > x:
+                right = i - 1
+            else:
+                left = i + 1
+
+        return right
 
 
 if __name__ == '__main__':
     cases = [
-        "a",
-        "Hello World",
-        "   fly me   to   the moon  ",
+        0, 1, 4, 8, 6
     ]
 
     for case in cases:
-        print(Solution().lengthOfLastWord(case))
+        print(Solution().mySqrt(case))
