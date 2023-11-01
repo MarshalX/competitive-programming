@@ -46,3 +46,4 @@
 - Плейлист [АиСД year2020 s1](https://youtube.com/playlist?list=PLrS21S1jm43jz48qjdfYNpuIPgL3lNJ_o)
 - Что такое sliding window: [Solve subarray problems FASTER (using Sliding Windows)](https://youtu.be/GcW4mgmgSbw)
 - Что такое dynamic programming: [Mastering Dynamic Programming - How to solve any interview problem (Part 1)](https://youtu.be/Hdr64lKQ3e4)
+- [Linked List Cycle - Floyd's Tortoise and Hare](https://youtu.be/gBTe7lFR3vc)
