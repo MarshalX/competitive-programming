@@ -3,18 +3,19 @@ class Solution:
         squares = {i: i ** 2 for i in range(0, 10)}
         known = set()
 
+        current = n
         while True:
             new = 0
-            while n != 0:
-                new += squares[(n % 10)]
-                n //= 10
+            while current != 0:
+                new += squares[current % 10]
+                current //= 10
 
             if new == 1:
                 return True
             if new in known:
                 return False
 
-            n = new
+            current = new
             known.add(new)
 
 
