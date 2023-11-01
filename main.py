@@ -1,22 +1,30 @@
 class Solution:
+    squares = {i: i ** 2 for i in range(0, 10)}
+
+    def squaresSumOfDigits(self, current: int) -> int:
+        new = 0
+
+        while current != 0:
+            new += self.squares[current % 10]
+            current //= 10
+
+        return new
+
     def isHappy(self, n: int) -> bool:
-        squares = {i: i ** 2 for i in range(0, 10)}
-        known = set()
+        slow = self.squaresSumOfDigits(n)
+        if slow == 1:
+            return True
 
-        current = n
-        while True:
-            new = 0
-            while current != 0:
-                new += squares[current % 10]
-                current //= 10
+        fast = self.squaresSumOfDigits(self.squaresSumOfDigits(n))
 
-            if new == 1:
+        while slow != fast:
+            slow = self.squaresSumOfDigits(slow)
+            fast = self.squaresSumOfDigits(self.squaresSumOfDigits(fast))
+
+            if slow == 1:
                 return True
-            if new in known:
-                return False
 
-            current = new
-            known.add(new)
+        return False
 
 
 if __name__ == '__main__':
