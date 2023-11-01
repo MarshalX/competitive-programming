@@ -1,36 +1,24 @@
 class Solution:
-    squares = {i: i ** 2 for i in range(0, 10)}
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        if head is None:
+            return False
 
-    def squaresSumOfDigits(self, current: int) -> int:
-        new = 0
+        slow = head.next
+        if slow is None:
+            return False
 
-        while current != 0:
-            new += self.squares[current % 10]
-            current //= 10
-
-        return new
-
-    def isHappy(self, n: int) -> bool:
-        slow = self.squaresSumOfDigits(n)
-        if slow == 1:
-            return True
-
-        fast = self.squaresSumOfDigits(self.squaresSumOfDigits(n))
+        fast = head.next.next
 
         while slow != fast:
-            slow = self.squaresSumOfDigits(slow)
-            fast = self.squaresSumOfDigits(self.squaresSumOfDigits(fast))
+            slow = slow.next
 
-            if slow == 1:
-                return True
+            if slow is None or (fast is None or fast.next is None):
+                return False
 
-        return False
+            fast = fast.next.next
+
+        return True
 
 
 if __name__ == '__main__':
-    cases = [
-        0, 1, 19, 2
-    ]
-
-    for case in cases:
-        print(Solution().isHappy(case))
+    pass
