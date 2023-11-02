@@ -1,29 +1,30 @@
-from typing import List
-
-
 class Solution:
-    def plusOne(self, digits: List[int]) -> List[int]:
-        for i in reversed(range(len(digits))):
-            if digits[i] == 9:
-                digits[i] = 0
-            else:
-                digits[i] += 1
-                return digits
+    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if head is None:
+            return None
 
-        digits.insert(0, 1)
-        return digits
+        slow = head.next
+        if slow is None:
+            return None
+
+        fast = head.next.next
+
+        while slow != fast:
+            slow = slow.next
+
+            if slow is None or (fast is None or fast.next is None):
+                return None
+
+            fast = fast.next.next
+
+        cycle_start = head
+        while head != fast:
+            head = head.next
+            fast = fast.next
+            cycle_start = head
+
+        return cycle_start
 
 
 if __name__ == '__main__':
-    cases = [
-        [0],
-        [9, 9, 9],
-        [9, 8, 9],
-        [1, 2, 9],
-        [1, 2, 3],
-        [4, 3, 2, 1],
-        [9],
-    ]
-
-    for case in cases:
-        print(Solution().plusOne(case))
+    pass
