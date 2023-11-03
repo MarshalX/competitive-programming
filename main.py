@@ -1,29 +1,18 @@
 class Solution:
-    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        if head is None:
-            return None
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        res = []
 
-        slow = head.next
-        if slow is None:
-            return None
+        def _(r):
+            if r is None:
+                return []
 
-        fast = head.next.next
+            _(r.left)
+            res.append(r.val)
+            _(r.right)
 
-        while slow != fast:
-            slow = slow.next
+        _(root)
 
-            if slow is None or (fast is None or fast.next is None):
-                return None
-
-            fast = fast.next.next
-
-        cycle_start = head
-        while head != fast:
-            head = head.next
-            fast = fast.next
-            cycle_start = head
-
-        return cycle_start
+        return res
 
 
 if __name__ == '__main__':
