@@ -1,13 +1,13 @@
 class Solution:
-    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         res = []
 
         def _(r):
             if r is None:
                 return []
 
-            _(r.left)
             res.append(r.val)
+            _(r.left)
             _(r.right)
 
         _(root)
