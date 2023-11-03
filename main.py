@@ -1,14 +1,14 @@
 class Solution:
-    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+    def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         res = []
 
         def _(r):
             if r is None:
                 return []
 
-            res.append(r.val)
             _(r.left)
             _(r.right)
+            res.append(r.val)
 
         _(root)
 
