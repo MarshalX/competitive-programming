@@ -1,16 +1,14 @@
 class Solution:
-    def maxDepth(self, root: Optional[TreeNode]) -> int:
-        def _(r, d) -> int:
-            if r is None:
-                return d
+    def climbStairs(self, n: int) -> int:
+        dp = {0: 1, 1: 2}
 
-            l = _(r.left, d + 1)
-            r = _(r.right, d + 1)
+        for i in range(2, n):
+            dp[i] = dp[i - 1] + dp[i - 2]
 
-            return max(l, r)
-
-        return _(root, 0)
+        return dp[n - 1]
 
 
 if __name__ == '__main__':
-    print(Solution().maxDepth(None))
+    print(Solution().climbStairs(1))
+    print(Solution().climbStairs(2))
+    print(Solution().climbStairs(3))
