@@ -2,10 +2,16 @@ from typing import Optional
 
 
 class Solution:
-    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
-        if p is None or q is None:
-            return p == q
-        return p.val == q.val and self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+    def searchBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
+        if root is None:
+            return None
+        if root.val == val:
+            return root
+
+        if res := (self.searchBST(root.left, val) or self.searchBST(root.right, val)):
+            return res
+
+        return None
 
 
 if __name__ == '__main__':
