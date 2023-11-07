@@ -1,18 +1,32 @@
+import queue
+from typing import Optional
+
+
 class Solution:
-    def uniquePaths(self, m: int, n: int) -> int:
-        dp = {}
-        for y in range(m):
-            dp[(n - 1, y)] = 1
-        for x in range(n):
-            dp[(x, m - 1)] = 1
+    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+        qe = queue.Queue()
 
-        for x in reversed(range(n - 1)):
-            for y in reversed(range(m - 1)):
-                dp[(x, y)] = dp[(x + 1, y)] + dp[x, y + 1]
+        qe.put(p)
+        qe.put(q)
+        while not qe.empty():
+            n1 = qe.get()
+            n2 = qe.get()
 
-        return dp[(0, 0)]
+            if n1 is None or n2 is None:
+                if n1 != n2:
+                    return False
+                continue
+
+            if n1.val != n2.val:
+                return False
+
+            qe.put(n1.left)
+            qe.put(n1.right)
+            qe.put(n2.left)
+            qe.put(n2.right)
+
+        return True
 
 
 if __name__ == '__main__':
-    print(Solution().uniquePaths(3, 7))
-    print(Solution().uniquePaths(3, 2))
+    pass
