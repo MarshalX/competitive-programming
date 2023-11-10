@@ -12,7 +12,7 @@ class TreeNode:
 
 
 class Solution:
-    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         res = []
 
         if root is None:
@@ -24,10 +24,10 @@ class Solution:
             if visited:
                 res.append(node.val)
             else:
+                stack.append((node, True))
+
                 if node.left:
                     stack.append((node.left, False))
-
-                stack.append((node, True))
 
                 if node.right:
                     stack.append((node.right, False))
@@ -36,12 +36,4 @@ class Solution:
 
 
 if __name__ == '__main__':
-    t = TreeNode(0, TreeNode(1, TreeNode(2), TreeNode(3)), TreeNode(4, TreeNode(5)))
-
-    #             0
-    #     1               4
-    # 2       3       5
-
-    # 2 1 3 0 5 4
-
-    print(Solution().inorderTraversal(t))
+    pass
