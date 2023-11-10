@@ -1,39 +1,47 @@
-from typing import List, Optional
-
-
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
-
-    def __repr__(self):
-        return f'Node({self.val=}, {self.left=}, {self.right=})'
+from collections import defaultdict
+from typing import List
 
 
 class Solution:
-    def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        res = []
+    def restoreArray(self, adjacentPairs: List[List[int]]) -> List[int]:
+        n = len(adjacentPairs)
 
-        if root is None:
-            return res
+        d = defaultdict(lambda: [])
+        for pair in adjacentPairs:
+            u, v = pair
+            d[u].append(v)
+            d[v].append(u)
 
-        stack = [(root, False)]
-        while stack:
-            node, visited = stack.pop()
-            if visited:
-                res.append(node.val)
+        start = None
+        for k, v in d.items():
+            if len(v) == 1:
+                start = k
+                break
+
+        res = [start]
+
+        cur = start
+        prev = None
+        for _ in range(n):
+            if len(d[cur]) < 2:
+                p = d[cur][0]
             else:
-                if node.left:
-                    stack.append((node.left, False))
+                p1, p2 = d[cur]
+                p = p1 if p1 != prev else p2
 
-                if node.right:
-                    stack.append((node.right, False))
+            prev = cur
+            cur = p
 
-                stack.append((node, True))
+            res.append(p)
 
-        return res[::-1]
+        return res
 
 
 if __name__ == '__main__':
-    pass
+    cases = [
+        [[2, 1], [3, 4], [3, 2]],
+        [[4, -2], [1, 4], [-3, 1]],
+        [[100000, -100000]],
+    ]
+    for case in cases:
+        print(Solution().restoreArray(case))
