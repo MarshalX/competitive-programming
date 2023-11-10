@@ -12,7 +12,7 @@ class TreeNode:
 
 
 class Solution:
-    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+    def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         res = []
 
         if root is None:
@@ -24,13 +24,13 @@ class Solution:
             if visited:
                 res.append(node.val)
             else:
-                stack.append((node, True))
-
                 if node.left:
                     stack.append((node.left, False))
 
                 if node.right:
                     stack.append((node.right, False))
+
+                stack.append((node, True))
 
         return res[::-1]
 
