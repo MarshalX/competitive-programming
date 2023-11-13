@@ -48,3 +48,4 @@
 - Что такое dynamic programming: [Mastering Dynamic Programming - How to solve any interview problem (Part 1)](https://youtu.be/Hdr64lKQ3e4)
 - [Linked List Cycle - Floyd's Tortoise and Hare](https://youtu.be/gBTe7lFR3vc)
 - Найти позицию начала цикла (`len(head -> cycle_start) == len(equal_pointers -> cycle_start)`) [Floyd's Cycle Detection](https://youtu.be/wjYnzkAhcNk)
+- [How Dijkstra's Algorithm Works](https://youtu.be/EFg3u_E6eHU)
