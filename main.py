@@ -1,47 +1,49 @@
-from collections import defaultdict
 from typing import List
 
 
-class Solution:
-    def restoreArray(self, adjacentPairs: List[List[int]]) -> List[int]:
-        n = len(adjacentPairs)
+class Graph:
+    def __init__(self, n: int, edges: List[List[int]]):
+        self.graph = [[float('inf') for _ in range(n)] for _ in range(n)]
+        for edge in edges:
+            self.addEdge(edge)
 
-        d = defaultdict(lambda: [])
-        for pair in adjacentPairs:
-            u, v = pair
-            d[u].append(v)
-            d[v].append(u)
+    def addEdge(self, edge: List[int]) -> None:
+        f, t, w = edge
+        self.graph[f][t] = w
 
-        start = None
-        for k, v in d.items():
-            if len(v) == 1:
-                start = k
-                break
+    def shortestPath(self, node1: int, node2: int) -> int:
+        start, end = node1, node2
 
-        res = [start]
+        dest = [float('inf') for _ in range(len(self.graph))]
+        dest[start] = 0
 
+        visited = {start}
         cur = start
-        prev = None
-        for _ in range(n):
-            if len(d[cur]) < 2:
-                p = d[cur][0]
-            else:
-                p1, p2 = d[cur]
-                p = p1 if p1 != prev else p2
+        while len(visited) != len(self.graph):
+            m = None
+            for i in range(len(self.graph)):
+                if i in visited:
+                    continue
 
-            prev = cur
-            cur = p
+                if dest[i] > dest[cur] + self.graph[cur][i]:
+                    dest[i] = dest[cur] + self.graph[cur][i]
 
-            res.append(p)
+                if m is None or dest[m] > dest[i]:
+                    m = i
 
-        return res
+            visited.add(cur)
+
+            if cur == end:
+                return dest[end] if dest[end] != float('inf') else -1
+
+            cur = m
+
+        return -1
 
 
 if __name__ == '__main__':
-    cases = [
-        [[2, 1], [3, 4], [3, 2]],
-        [[4, -2], [1, 4], [-3, 1]],
-        [[100000, -100000]],
-    ]
-    for case in cases:
-        print(Solution().restoreArray(case))
+    g = Graph(4, [[0, 2, 5], [0, 1, 2], [1, 2, 1], [3, 0, 3]])
+    print(g.shortestPath(3, 2))
+    print(g.shortestPath(0, 3))
+    g.addEdge([1, 3, 4])
+    print(g.shortestPath(0, 3))
