@@ -1,9 +1,10 @@
+import heapq
 from typing import List
 
 
 class Graph:
     def __init__(self, n: int, edges: List[List[int]]):
-        self.graph = [[float('inf') for _ in range(n)] for _ in range(n)]
+        self.graph = [[float('inf')] * n for _ in range(n)]
         for edge in edges:
             self.addEdge(edge)
 
@@ -14,31 +15,29 @@ class Graph:
     def shortestPath(self, node1: int, node2: int) -> int:
         start, end = node1, node2
 
-        dest = [float('inf') for _ in range(len(self.graph))]
+        dest = [float('inf')] * len(self.graph)
         dest[start] = 0
 
-        visited = {start}
-        cur = start
-        while len(visited) != len(self.graph):
-            m = None
-            for i in range(len(self.graph)):
-                if i in visited:
-                    continue
+        q = []
+        heapq.heappush(q, (0, start))
+        while q:
+            cur_cost, cur = heapq.heappop(q)
 
-                if dest[i] > dest[cur] + self.graph[cur][i]:
-                    dest[i] = dest[cur] + self.graph[cur][i]
-
-                if m is None or dest[m] > dest[i]:
-                    m = i
-
-            visited.add(cur)
+            if cur_cost > dest[cur]:
+                continue
 
             if cur == end:
-                return dest[end] if dest[end] != float('inf') else -1
+                return cur_cost
 
-            cur = m
+            for i, cost in enumerate(self.graph[cur]):
+                if cost == float('inf'):
+                    continue
 
-        return -1
+                if dest[i] > dest[cur] + cost:
+                    dest[i] = dest[cur] + cost
+                    heapq.heappush(q, (dest[i], i))
+
+        return dest[end] if dest[end] != float('inf') else -1
 
 
 if __name__ == '__main__':
