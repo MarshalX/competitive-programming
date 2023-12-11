@@ -1,9 +1,15 @@
+from collections import defaultdict
 from typing import List
 
 
 class Solution:
     def containsDuplicate(self, nums: List[int]) -> bool:
-        return len(set(nums)) != len(nums)
+        d = defaultdict(lambda: 0)
+        for num in nums:
+            d[num] += 1
+            if d[num] > 1:
+                return True
+        return False
 
 
 if __name__ == '__main__':
