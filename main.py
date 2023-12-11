@@ -1,18 +1,19 @@
-from collections import defaultdict
 from typing import List
 
 
 class Solution:
-    def containsDuplicate(self, nums: List[int]) -> bool:
-        d = defaultdict(lambda: 0)
+    def missingNumber(self, nums: List[int]) -> int:
+        res = 0
         for num in nums:
-            d[num] += 1
-            if d[num] > 1:
-                return True
-        return False
+            res ^= num
+
+        for i in range(len(nums) + 1):
+            res ^= i
+
+        return res
 
 
 if __name__ == '__main__':
-    print(Solution().containsDuplicate([1, 2, 3, 1]))
-    print(Solution().containsDuplicate([1, 2, 3, 4]))
-    print(Solution().containsDuplicate([1, 1, 1, 3, 3, 4, 3, 2, 4, 2]))
+    print(Solution().missingNumber([3, 0, 1]))
+    print(Solution().missingNumber([0, 1]))
+    print(Solution().missingNumber([9, 6, 4, 2, 3, 5, 7, 0, 1]))
