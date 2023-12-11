@@ -1,48 +1,17 @@
-import heapq
 from typing import List
 
 
-class Graph:
-    def __init__(self, n: int, edges: List[List[int]]):
-        self.graph = [[float('inf')] * n for _ in range(n)]
-        for edge in edges:
-            self.addEdge(edge)
-
-    def addEdge(self, edge: List[int]) -> None:
-        f, t, w = edge
-        self.graph[f][t] = w
-
-    def shortestPath(self, node1: int, node2: int) -> int:
-        start, end = node1, node2
-
-        dest = [float('inf')] * len(self.graph)
-        dest[start] = 0
-
-        q = []
-        heapq.heappush(q, (0, start))
-        while q:
-            cur_cost, cur = heapq.heappop(q)
-
-            if cur_cost > dest[cur]:
-                continue
-
-            if cur == end:
-                return cur_cost
-
-            for i, cost in enumerate(self.graph[cur]):
-                if cost == float('inf'):
-                    continue
-
-                if dest[i] > dest[cur] + cost:
-                    dest[i] = dest[cur] + cost
-                    heapq.heappush(q, (dest[i], i))
-
-        return dest[end] if dest[end] != float('inf') else -1
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        dp = {}
+        for i in range(len(nums)):
+            t = target - nums[i]
+            if nums[i] in dp:
+                return [i, dp[nums[i]]]
+            dp[t] = i
 
 
 if __name__ == '__main__':
-    g = Graph(4, [[0, 2, 5], [0, 1, 2], [1, 2, 1], [3, 0, 3]])
-    print(g.shortestPath(3, 2))
-    print(g.shortestPath(0, 3))
-    g.addEdge([1, 3, 4])
-    print(g.shortestPath(0, 3))
+    print(Solution().twoSum([2, 7, 11, 15], 9))
+    print(Solution().twoSum([3, 2, 4], 6))
+    print(Solution().twoSum([3, 3], 6))
