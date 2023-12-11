@@ -4,13 +4,10 @@ from typing import List
 class Solution:
     def missingNumber(self, nums: List[int]) -> int:
         res = 0
-        for num in nums:
-            res ^= num
+        for i in range(len(nums)):
+            res = res ^ nums[i] ^ i
 
-        for i in range(len(nums) + 1):
-            res ^= i
-
-        return res
+        return res ^ i + 1
 
 
 if __name__ == '__main__':
