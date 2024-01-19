@@ -2,27 +2,15 @@ from typing import List
 
 
 class Solution:
-    def majorityElement(self, nums: List[int]) -> int:
-        nums.sort()
-
-        count = max_count = 1
-        prev = res = nums[0]
-        for n in range(1, len(nums)):
-            if nums[n] != prev:
-                count = 1
-                prev = nums[n]
-                continue
-
-            count += 1
-            if max_count < count:
-                max_count = count
-                res = nums[n]
-
-        return res
+    def isAlienSorted(self, words: List[str], order: str) -> bool:
+        dm = {v: i for i, v in enumerate(order)}
+        wo = [[dm[c] for c in w] for w in words]
+        wa = sorted(wo)
+        return wo == wa
 
 
 if __name__ == '__main__':
-    print(Solution().majorityElement([1]))
-    print(Solution().majorityElement([3, 2, 3]))
-    print(Solution().majorityElement([2, 2, 1, 1, 1, 2, 2]))
-    print(Solution().majorityElement([3, 3, 4]))
+    print(Solution().isAlienSorted(["hello", "leetcode"], "hlabcdefgijkmnopqrstuvwxyz"))
+    print(Solution().isAlienSorted(["word", "world", "row"], "worldabcefghijkmnpqstuvxyz"))
+    print(Solution().isAlienSorted(["apple", "app"], "abcdefghijklmnopqrstuvwxyz"))
+    print(Solution().isAlienSorted(["kuvp", "q"], "ngxlkthsjuoqcpavbfdermiywz"))
