@@ -1,33 +1,44 @@
-from typing import List
-
-
 class Solution:
-    def letterCombinations(self, digits: str) -> List[str]:
-        a, b, c, d = (list(digits) + ['0'] * 4)[:4]
-        m = {
-            '0': [''],
-            '1 ': [''],
-            '2': ['a', 'b', 'c'],
-            '3': ['d', 'e', 'f'],
-            '4': ['g', 'h', 'i'],
-            '5': ['j', 'k', 'l'],
-            '6': ['m', 'n', 'o'],
-            '7': ['p', 'q', 'r', 's'],
-            '8': ['t', 'u', 'v'],
-            '9': ['w', 'x', 'y', 'z'],
-        }
+    def myAtoi(self, s: str) -> int:
+        sign, sign_buf, buf = 1, '', ''
+        for c in s:
+            if not buf and not sign_buf and c == ' ':
+                continue
 
-        res = []
-        for l1 in m[a]:
-            for l2 in m[b]:
-                for l3 in m[c]:
-                    for l4 in m[d]:
-                        if r := l1 + l2 + l3 + l4:
-                            res.append(r)
+            if not buf and not sign_buf and c in {'-', '+'}:
+                sign, sign_buf = -1 if c == '-' else 1, c
+                continue
 
-        return res
+            if not c.isdigit():
+                break
+
+            buf += c
+
+        num = sign * int(buf or 0)
+        num = min(2 ** 31 - 1, num)
+        return max(-2 ** 31, num)
 
 
 if __name__ == '__main__':
-    a = Solution().letterCombinations('23')
-    assert ['ad', 'ae', 'af', 'bd', 'be', 'bf', 'cd', 'ce', 'cf'] == a
+    a = Solution().myAtoi('')
+    assert 0 == a
+    a = Solution().myAtoi('42')
+    assert 42 == a
+    a = Solution().myAtoi('+-12')
+    assert 0 == a
+    a = Solution().myAtoi('  +  413')
+    assert 0 == a
+    a = Solution().myAtoi('42-')
+    assert 42 == a
+    a = Solution().myAtoi('   -42')
+    assert -42 == a
+    a = Solution().myAtoi('   -4  2')
+    assert -4 == a
+    a = Solution().myAtoi('4193 with words')
+    assert 4193 == a
+    a = Solution().myAtoi('41.93')
+    assert 41 == a
+    a = Solution().myAtoi('2147483648')
+    assert 2_147_483_647 == a
+    a = Solution().myAtoi('-2147483649')
+    assert -2_147_483_648 == a
