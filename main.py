@@ -2,35 +2,32 @@ from typing import List
 
 
 class Solution:
-    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+    def letterCombinations(self, digits: str) -> List[str]:
+        a, b, c, d = (list(digits) + ['0'] * 4)[:4]
+        m = {
+            '0': [''],
+            '1 ': [''],
+            '2': ['a', 'b', 'c'],
+            '3': ['d', 'e', 'f'],
+            '4': ['g', 'h', 'i'],
+            '5': ['j', 'k', 'l'],
+            '6': ['m', 'n', 'o'],
+            '7': ['p', 'q', 'r', 's'],
+            '8': ['t', 'u', 'v'],
+            '9': ['w', 'x', 'y', 'z'],
+        }
+
         res = []
+        for l1 in m[a]:
+            for l2 in m[b]:
+                for l3 in m[c]:
+                    for l4 in m[d]:
+                        if r := l1 + l2 + l3 + l4:
+                            res.append(r)
 
-        i1 = i2 = 0
-        while i1 != m:
-            if i2 >= n:
-                res.append(nums1[i1])
-                i1 += 1
-            elif nums1[i1] < nums2[i2]:
-                res.append(nums1[i1])
-                i1 += 1
-            elif nums1[i1] > nums2[i2]:
-                res.append(nums2[i2])
-                i2 += 1
-            else:
-                res.append(nums2[i2])
-                res.append(nums2[i2])
-                i1 += 1
-                i2 += 1
-
-        while i2 != n:
-            res.append(nums2[i2])
-            i2 += 1
-
-        for i in range(m + n):
-            nums1[i] = res[i]
+        return res
 
 
 if __name__ == '__main__':
-    a = [1, 2, 3, 0, 0, 0]
-    Solution().merge(a, 3, [2, 5, 6], 3)
-    assert [1, 2, 2, 3, 5, 6] == a
+    a = Solution().letterCombinations('23')
+    assert ['ad', 'ae', 'af', 'bd', 'be', 'bf', 'cd', 'ce', 'cf'] == a
