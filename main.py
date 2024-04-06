@@ -1,20 +1,15 @@
-class Solution:
-    def maxDepth(self, s: str) -> int:
-        result = current = 0
-        for c in s:
-            if c == '(':
-                current += 1
-                result = max(result, current)
-            elif c == ')':
-                current -= 1
+from typing import List
 
-        return result
+
+class Solution:
+    def arrayPairSum(self, nums: List[int]) -> int:
+        return sum(sorted(nums)[::2])
 
 
 if __name__ == '__main__':
-    a = Solution().maxDepth('(1+(2*3)+((8)/4))+1')
-    assert 3 == a
-    a = Solution().maxDepth('')
-    assert 0 == a
-    a = Solution().maxDepth('(1)+((2))+(((3)))"')
-    assert 3 == a
+    a = Solution().arrayPairSum([1, 1])
+    assert 1 == a
+    a = Solution().arrayPairSum([1, 4, 3, 2])
+    assert 4 == a
+    a = Solution().arrayPairSum([6, 2, 6, 5, 1, 2])
+    assert 9 == a
