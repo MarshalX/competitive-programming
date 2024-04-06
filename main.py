@@ -1,15 +1,19 @@
-from typing import List
+class ParkingSystem:
+    def __init__(self, big: int, medium: int, small: int):
+        self._slots = {1: 0, 2: 0, 3: 0}
+        self._slots_limits = {1: big, 2: medium, 3: small}
 
+    def addCar(self, carType: int) -> bool:
+        if self._slots[carType] == self._slots_limits[carType]:
+            return False
 
-class Solution:
-    def arrayPairSum(self, nums: List[int]) -> int:
-        return sum(sorted(nums)[::2])
+        self._slots[carType] += 1
+        return True
 
 
 if __name__ == '__main__':
-    a = Solution().arrayPairSum([1, 1])
-    assert 1 == a
-    a = Solution().arrayPairSum([1, 4, 3, 2])
-    assert 4 == a
-    a = Solution().arrayPairSum([6, 2, 6, 5, 1, 2])
-    assert 9 == a
+    a = ParkingSystem(1, 1, 0)
+    assert True is a.addCar(1)
+    assert True is a.addCar(2)
+    assert False is a.addCar(3)
+    assert False is a.addCar(1)
