@@ -3,10 +3,15 @@ from typing import List
 
 class Solution:
     def sortArrayByParity(self, nums: List[int]) -> List[int]:
-        odd, even = [], []
-        for num in nums:
-            odd.append(num) if num & 1 == 1 else even.append(num)
-        return even + odd
+        last = 0
+        for i in range(len(nums)):
+            if nums[i] & 1 != 1:
+                tmp = nums[last]
+                nums[last] = nums[i]
+                nums[i] = tmp
+                last += 1
+
+        return nums
 
 
 if __name__ == '__main__':
