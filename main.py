@@ -2,39 +2,25 @@ from typing import List
 
 
 class Solution:
-    def sortArrayByParityII(self, nums: List[int]) -> List[int]:
-        p1, p2 = 0, 0
-        for i in range(len(nums)):
-            while p1 < len(nums) and nums[p1] & 1 != 1:
-                p1 += 1
-            while p2 < len(nums) and nums[p2] & 1 == 1:
-                p2 += 1
+    def timeRequiredToBuy(self, tickets: List[int], k: int) -> int:
+        i = res = 0
+        while tickets[k] != 0:
+            if i == len(tickets):
+                i = 0
 
-            if i & 1 == 1 and nums[i] & 1 != 1:
-                nums[i], nums[p1] = nums[p1], nums[i]
-            elif i & 1 != 1 and nums[i] & 1 == 1:
-                nums[i], nums[p2] = nums[p2], nums[i]
+            if tickets[i] != 0:
+                tickets[i] -= 1
+                res += 1
 
-            if p1 < i:
-                p1 = i + 1
-            if p2 < i:
-                p2 = i + 1
+            i += 1
 
-        return nums
+        return res
 
 
 if __name__ == '__main__':
-    a = Solution().sortArrayByParityII([3, 4])
-    assert [4, 3] == a
-    a = Solution().sortArrayByParityII([4, 1, 1, 4])
-    assert [4, 1, 4, 1] == a
-    a = Solution().sortArrayByParityII([4, 1, 2, 1])
-    assert [4, 1, 2, 1] == a
-    a = Solution().sortArrayByParityII([2, 3])
-    assert [2, 3] == a
-    a = Solution().sortArrayByParityII([1, 1, 1, 1, 2, 2, 2, 2])
-    assert [2, 1, 2, 1, 2, 1, 2, 1] == a
-    a = Solution().sortArrayByParityII([2, 2, 2, 2, 1, 1, 1, 1])
-    assert [2, 1, 2, 1, 2, 1, 2, 1] == a
-    a = Solution().sortArrayByParityII([2, 2, 2, 2, 2, 1, 1, 1, 1, 1])
-    assert [2, 1, 2, 1, 2, 1, 2, 1, 2, 1] == a
+    a = Solution().timeRequiredToBuy(tickets=[2], k=0)
+    assert 2 == a
+    a = Solution().timeRequiredToBuy(tickets=[2, 3, 2], k=2)
+    assert 6 == a
+    a = Solution().timeRequiredToBuy(tickets=[5, 1, 1, 1], k=0)
+    assert 8 == a
