@@ -1,4 +1,4 @@
-# Competitive Programming ![WakaTime](https://wakatime.com/badge/user/3dffa020-4a1a-4dcc-8526-a337c2321c39/project/68016cf3-c5b4-4085-b9fa-85bf43920f0f.svg?style=flat-square)
+# Competitive Programming ![WakaTime](https://wakatime.com/badge/user/3dffa020-4a1a-4dcc-8526-a337c2321c39/project/018eaf79-1703-45fc-b3af-4e3720f27cb2.svg?style=flat-square)
 
 > Я просто хочу пройти алгоритмический собес 🥺
 
