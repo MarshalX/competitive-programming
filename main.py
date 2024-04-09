@@ -2,25 +2,36 @@ from typing import List
 
 
 class Solution:
-    def timeRequiredToBuy(self, tickets: List[int], k: int) -> int:
-        i = res = 0
-        while tickets[k] != 0:
-            if i == len(tickets):
-                i = 0
+    def canThreePartsEqualSum(self, arr: List[int]) -> bool:
+        s = sum(arr)
+        if s % 3 != 0:
+            return False
 
-            if tickets[i] != 0:
-                tickets[i] -= 1
-                res += 1
+        e = s // 3
+        c, p = None, 0
+        for n in arr:
+            if c == e:
+                p += 1
+                if p == 3:
+                    break
+                c = 0
 
-            i += 1
+            c = (c or 0) + n
 
-        return res
+        if c == e:
+            p += 1
+
+        return min(3, p) == 3 and c in {0, e}
 
 
 if __name__ == '__main__':
-    a = Solution().timeRequiredToBuy(tickets=[2], k=0)
-    assert 2 == a
-    a = Solution().timeRequiredToBuy(tickets=[2, 3, 2], k=2)
-    assert 6 == a
-    a = Solution().timeRequiredToBuy(tickets=[5, 1, 1, 1], k=0)
-    assert 8 == a
+    a = Solution().canThreePartsEqualSum([1, -1, 1, -1])
+    assert False is a
+    a = Solution().canThreePartsEqualSum([0, 0, 0, 0])
+    assert True is a
+    a = Solution().canThreePartsEqualSum([0, 2, 1, -6, 6, -7, 9, 1, 2, 0, 1])
+    assert True is a
+    a = Solution().canThreePartsEqualSum([0, 2, 1, -6, 6, 7, 9, -1, 2, 0, 1])
+    assert False is a
+    a = Solution().canThreePartsEqualSum([3, 3, 6, 5, -2, 2, 5, 1, -9, 4])
+    assert True is a
