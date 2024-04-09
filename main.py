@@ -1,37 +1,22 @@
-from typing import List
-
-
 class Solution:
-    def canThreePartsEqualSum(self, arr: List[int]) -> bool:
-        s = sum(arr)
-        if s % 3 != 0:
-            return False
+    def removeOuterParentheses(self, s: str) -> str:
+        count, res = 0, ''
+        for c in s:
+            init = count == 0
+            count += 1 if c == '(' else -1
 
-        e = s // 3
-        c, p = None, 0
-        for n in arr:
-            if c == e:
-                p += 1
-                if p == 3:
-                    break
-                c = 0
+            if init or count == 0:
+                continue
 
-            c = (c or 0) + n
+            res += c
 
-        if c == e:
-            p += 1
-
-        return min(3, p) == 3 and c in {0, e}
+        return res
 
 
 if __name__ == '__main__':
-    a = Solution().canThreePartsEqualSum([1, -1, 1, -1])
-    assert False is a
-    a = Solution().canThreePartsEqualSum([0, 0, 0, 0])
-    assert True is a
-    a = Solution().canThreePartsEqualSum([0, 2, 1, -6, 6, -7, 9, 1, 2, 0, 1])
-    assert True is a
-    a = Solution().canThreePartsEqualSum([0, 2, 1, -6, 6, 7, 9, -1, 2, 0, 1])
-    assert False is a
-    a = Solution().canThreePartsEqualSum([3, 3, 6, 5, -2, 2, 5, 1, -9, 4])
-    assert True is a
+    a = Solution().removeOuterParentheses('(()())(())')
+    assert '()()()' == a
+    a = Solution().removeOuterParentheses('(()())(())(()(()))')
+    assert '()()()()(())' == a
+    a = Solution().removeOuterParentheses('()()')
+    assert '' == a
