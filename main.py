@@ -1,27 +1,13 @@
-from typing import Iterable, List
+from collections import deque
+from typing import List
 
 
 class Solution:
-    def simulate(self, n: int) -> Iterable[int]:
-        sim = [i for i in range(n)]
-        rev = []
-
-        while sim:
-            rev.append(sim[0])
-            sim.pop(0)
-            if len(sim) > 1:
-                sim.append(sim[0])
-                sim.pop(0)
-
-        return rev
-
     def deckRevealedIncreasing(self, deck: List[int]) -> List[int]:
-        n = len(deck)
-        res = [0] * n
-        it = iter(sorted(deck))
-        for i in self.simulate(n):
-            res[i] = next(it)
-
+        sim, res = deque(range(len(deck))), [0] * len(deck)
+        for card in sorted(deck):
+            res[sim.popleft()] = card
+            sim and sim.append(sim.popleft())
         return res
 
 
