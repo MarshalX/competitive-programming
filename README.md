@@ -22,6 +22,12 @@
 - В [231](https://github.com/MarshalX/competitive-programming/blob/fc874758789e1703255246c1dc9cbd63187a43a2/main.cpp) сраные граничные случаи с -2^31 и 2^31-1.
 
 ## Ссылки на почитать
+
+### Сайты с темами
+- [brestprog](https://brestprog.by/topics/) by @kodek16
+- [algorithm gitbook](https://liuzhenglaichn.gitbook.io/algorithm) by @lzl124631x
+
+### Конкретные темы
 - [x] [Maximum subarray problem (Kadane's algorithm)](https://en.wikipedia.org/wiki/Maximum_subarray_problem). LeetCode [53](https://leetcode.com/problems/maximum-subarray/)
 - [ ] [Sliding Window Technique](https://quanticdev.com/algorithms/dynamic-programming/sliding-window/)
 - [x] [Префиксные суммы. XOR. Задачи на запросы](https://brestprog.by/topics/prefixsums/)
