@@ -9,22 +9,15 @@ class TreeNode:
 
 
 class Solution:
-    def bfs(self, node: TreeNode):
-        res, q, visited = 0, [(node, False)], set()
-        while q:
-            i, l = q.pop()
-            if not i or i in visited: continue
-
-            if l and i.val and i.left is None and i.right is None: res += i.val
-            visited.add(i)
-
-            q.append((i.left, True))
-            q.append((i.right, False))
-
+    def dfs(self, node: TreeNode, num: int, storage: List[int], left: bool):
+        res = 0
+        if node.left: res += self.dfs(node.left, num, storage, True)
+        if node.right: res += self.dfs(node.right, num, storage, False)
+        if left and not node.left and not node.right: num += node.val; return num
         return res
 
     def sumOfLeftLeaves(self, root: Optional[TreeNode]) -> int:
-        return self.bfs(root)
+        return self.dfs(root, 0, [], False)
 
 
 if __name__ == '__main__':
