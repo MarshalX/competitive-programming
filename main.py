@@ -9,20 +9,26 @@ class TreeNode:
 
 
 class Solution:
-    def dfs(self, node: TreeNode, num: int, storage: List[int]):
-        if node.left: self.dfs(node.left, num * 10 + node.val, storage)
-        if node.right: self.dfs(node.right, num * 10 + node.val, storage)
-        if not node.left and not node.right: storage.append(num * 10 + node.val)
-        return storage
+    def bfs(self, node: TreeNode):
+        res, q, visited = 0, [(node, False)], set()
+        while q:
+            i, l = q.pop()
+            if not i or i in visited: continue
 
-    def sumNumbers(self, root: Optional[TreeNode]) -> int:
-        return sum(self.dfs(root, 0, []))
+            if l and i.val and i.left is None and i.right is None: res += i.val
+            visited.add(i)
+
+            q.append((i.left, True))
+            q.append((i.right, False))
+
+        return res
+
+    def sumOfLeftLeaves(self, root: Optional[TreeNode]) -> int:
+        return self.bfs(root)
 
 
 if __name__ == '__main__':
-    a = Solution().sumNumbers(TreeNode(1))
-    assert 1 == a
-    a = Solution().sumNumbers(TreeNode(1, TreeNode(2), TreeNode(3)))
-    assert 25 == a
-    a = Solution().sumNumbers(TreeNode(4, TreeNode(9, TreeNode(5), TreeNode(1)), TreeNode(0)))
-    assert 1026 == a
+    a = Solution().sumOfLeftLeaves(TreeNode(3, TreeNode(9), TreeNode(20, TreeNode(15), TreeNode(7))))
+    assert 24 == a
+    a = Solution().sumOfLeftLeaves(TreeNode(1))
+    assert 0 == a
