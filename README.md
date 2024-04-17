@@ -26,6 +26,7 @@
 ### Сайты с темами
 - [brestprog](https://brestprog.by/topics/) by @kodek16
 - [algorithm gitbook](https://liuzhenglaichn.gitbook.io/algorithm) by @lzl124631x
+- [USACO Guide](https://usaco.guide/)
 
 ### Конкретные темы
 - [x] [Maximum subarray problem (Kadane's algorithm)](https://en.wikipedia.org/wiki/Maximum_subarray_problem). LeetCode [53](https://leetcode.com/problems/maximum-subarray/)
