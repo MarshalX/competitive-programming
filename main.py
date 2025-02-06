@@ -1,27 +1,13 @@
-from typing import List, Optional
-
-
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
+from typing import List
 
 
 class Solution:
-    def dfs(self, node: TreeNode, num: int, storage: List[int], left: bool):
-        res = 0
-        if node.left: res += self.dfs(node.left, num, storage, True)
-        if node.right: res += self.dfs(node.right, num, storage, False)
-        if left and not node.left and not node.right: num += node.val; return num
-        return res
-
-    def sumOfLeftLeaves(self, root: Optional[TreeNode]) -> int:
-        return self.dfs(root, 0, [], False)
+    def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        return list(set(nums1) & set(nums2))
 
 
 if __name__ == '__main__':
-    a = Solution().sumOfLeftLeaves(TreeNode(3, TreeNode(9), TreeNode(20, TreeNode(15), TreeNode(7))))
-    assert 24 == a
-    a = Solution().sumOfLeftLeaves(TreeNode(1))
-    assert 0 == a
+    a = Solution().intersection([1,2,2,1],[2,2])
+    assert [2] == a
+    b = Solution().intersection([4,9,5],[9,4,9,8,4])
+    assert [9,4] == b
