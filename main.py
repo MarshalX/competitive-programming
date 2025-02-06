@@ -1,27 +1,33 @@
-from collections import defaultdict
 from typing import List
 
 
 class Solution:
-    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        d = defaultdict(lambda: 0)
-        for num in nums1:
-            d[num] += 1
+    def findMin(self, nums: List[int]) -> int:
+        l = 0
+        r = len(nums) - 1
 
-        res = []
-        for num in nums2:
-            if num not in d:
-                continue
+        while l < r:
+            m = (l + r) // 2
 
-            if d[num] > 0:
-                res.append(num)
-                d[num] -= 1
+            if nums[m] > nums[r]:
+                l = m + 1
+            else:
+                r = m
 
-        return res
+        return nums[l]
 
 
 if __name__ == '__main__':
-    a = Solution().intersect([1,2,2,1],[2,2])
-    assert [2, 2] == a
-    b = Solution().intersect([4,9,5],[9,4,9,8,4])
-    assert [9,4] == b
+    print(Solution().findMin([0]))
+    print(Solution().findMin([2, 1]))
+    print(Solution().findMin([2, 3, 1]))
+    print(Solution().findMin([2,3,4,5,1]))
+    print(Solution().findMin([5,1,2,3,4]))
+    print(Solution().findMin([3,4,5,6,1,2]))
+
+    a = Solution().findMin([3,4,5,1,2])
+    assert 1 == a
+    a = Solution().findMin([4,5,6,7,0,1,2])
+    assert 0 == a
+    a = Solution().findMin([11,13,15,17])
+    assert 11 == a
