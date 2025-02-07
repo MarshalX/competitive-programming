@@ -7,16 +7,12 @@ class Solution:
         x, y = 0, len(grid) - 1
 
         res = 0
-        while y >= min_y:
+        while y >= min_y and x < max_x:
             if grid[y][x] < 0:
                 res += max_x - x
                 y -= 1
-                x = 0
             else:
                 x += 1
-                if x >= max_x:
-                    y -= 1
-                    x = 0
 
         return res
 
