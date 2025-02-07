@@ -1,22 +1,35 @@
-from typing import List
-
-
 class Solution:
-    def findMin(self, nums: List[int]) -> int:
-        return min(nums)
+    def minLength(self, s: str) -> int:
+        stack = []
+
+        saved_space = 0
+        for l in s:
+            if not len(stack):
+                stack.append(l)
+                continue
+
+            top = stack[len(stack) - 1]
+
+            if l == 'B' and top == 'A':
+                saved_space += 2
+                stack.pop()
+                continue
+            elif l == 'D' and top == 'C':
+                saved_space += 2
+                stack.pop()
+                continue
+            else:
+                stack.append(l)
+
+        return len(s) - saved_space
 
 
 if __name__ == '__main__':
-    print(Solution().findMin([0]))
-    print(Solution().findMin([2, 1]))
-    print(Solution().findMin([2, 3, 1]))
-    print(Solution().findMin([2,3,4,5,1]))
-    print(Solution().findMin([5,1,2,3,4]))
-    print(Solution().findMin([3,4,5,6,1,2]))
-
-    a = Solution().findMin([3,4,5,1,2])
-    assert 1 == a
-    a = Solution().findMin([4,5,6,7,0,1,2])
-    assert 0 == a
-    a = Solution().findMin([11,13,15,17])
-    assert 11 == a
+    a = Solution().minLength('ABFCACDB')
+    assert a == 2
+    a = Solution().minLength('ACBBD')
+    assert a == 5
+    a = Solution().minLength('ACDCDCDCDB')
+    assert a == 0
+    a = Solution().minLength('ACDCDFCDCDB')
+    assert a == 3
