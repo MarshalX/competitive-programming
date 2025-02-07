@@ -1,25 +1,28 @@
+from typing import List
+
+
 class Solution:
-    def minLength(self, s: str) -> int:
-        stack = []
+    def countNegatives(self, grid: List[List[int]]) -> int:
+        max_x, min_y = len(grid[0]), 0
+        x, y = 0, len(grid) - 1
 
-        for l in s:
-            top = stack[-1] if stack else None
-            if l == 'B' and top == 'A':
-                stack.pop()
-            elif l == 'D' and top == 'C':
-                stack.pop()
+        res = 0
+        while y >= min_y:
+            if grid[y][x] < 0:
+                res += max_x - x
+                y -= 1
+                x = 0
             else:
-                stack.append(l)
+                x += 1
+                if x >= max_x:
+                    y -= 1
+                    x = 0
 
-        return len(stack)
+        return res
 
 
 if __name__ == '__main__':
-    a = Solution().minLength('ABFCACDB')
-    assert a == 2
-    a = Solution().minLength('ACBBD')
-    assert a == 5
-    a = Solution().minLength('ACDCDCDCDB')
+    a = Solution().countNegatives([[4,3,2,-1],[3,2,1,-1],[1,1,-1,-2],[-1,-1,-2,-3]])
+    assert a == 8
+    a = Solution().countNegatives([[3,2],[1,0]])
     assert a == 0
-    a = Solution().minLength('ACDCDFCDCDB')
-    assert a == 3
