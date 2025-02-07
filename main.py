@@ -2,26 +2,16 @@ class Solution:
     def minLength(self, s: str) -> int:
         stack = []
 
-        saved_space = 0
         for l in s:
-            if not len(stack):
-                stack.append(l)
-                continue
-
-            top = stack[len(stack) - 1]
-
+            top = stack[-1] if stack else None
             if l == 'B' and top == 'A':
-                saved_space += 2
                 stack.pop()
-                continue
             elif l == 'D' and top == 'C':
-                saved_space += 2
                 stack.pop()
-                continue
             else:
                 stack.append(l)
 
-        return len(s) - saved_space
+        return len(stack)
 
 
 if __name__ == '__main__':
