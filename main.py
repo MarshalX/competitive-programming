@@ -1,24 +1,11 @@
-from collections import defaultdict
+from typing import List
 
 
 class Solution:
-    def rearrangeCharacters(self, s: str, target: str) -> int:
-        interesting_letters = set(list(target))
-
-        d = defaultdict(int)
-        for letter in s:
-            if letter in interesting_letters:
-                d[letter] += 1
-
-        res = 0
-        while True:
-            for letter in target:
-                if letter not in d:
-                    return res
-
-                if d[letter] == 0:
-                    return res
-
-                d[letter] -= 1
-
-            res += 1
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+     known_nums = {}
+     for i in range(len(nums)):
+         diff = target - nums[i]
+         if diff in known_nums:
+             return [i, known_nums[diff]]
+         known_nums[nums[i]] = i
