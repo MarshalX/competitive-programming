@@ -1,10 +1,16 @@
+from collections import defaultdict
+
+
 class Solution:
-    def numJewelsInStones(self, jewels: str, stones: str) -> int:
-        jewels = set(jewels)
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+        d = defaultdict(int)
+        for letter in magazine:
+            d[letter] += 1
 
-        res = 0
-        for stone in stones:
-            if stone in jewels:
-                res += 1
+        for letter in ransomNote:
+            if d[letter] > 0:
+                d[letter] -= 1
+            else:
+                return False
 
-        return res
+        return True
