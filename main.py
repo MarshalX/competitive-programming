@@ -1,23 +1,19 @@
-from typing import List
-
-
 class Solution:
-    def findClosestNumber(self, nums: List[int]) -> int:
-        res_og = nums[0]
-        res = abs(0 - nums[0])
-        for n in nums:
-            d = abs(0 - n)
-            if d < res:
-                res = d
-                res_og = n
-            elif d == res:
-                res_og = max(res_og, n)
+    def mergeAlternately(self, word1: str, word2: str) -> str:
+        res = ''
+        for i in range(max(len(word1), len(word2))):
+            if i < len(word1):
+                res += word1[i]
+            if i < len(word2):
+                res += word2[i]
 
-        return res_og
+        return res
 
 
 if __name__ == '__main__':
-    a = Solution().findClosestNumber([-4,-2,1,4,8])
-    assert a == 1
-    a = Solution().findClosestNumber([2,-1,1])
-    assert a == 1
+    assert 'apbqcrqqqq' == Solution().mergeAlternately(word1 = 'abc', word2 = 'pqrqqqq')
+    assert 'apbqcr' == Solution().mergeAlternately(word1 = 'abc', word2 = 'pqr')
+    assert 'apbqrs' == Solution().mergeAlternately(word1 = 'ab', word2 = 'pqrs')
+    assert 'apbqcd' == Solution().mergeAlternately(word1 = 'abcd', word2 = 'pq')
+    assert 'ab' == Solution().mergeAlternately(word1 = 'a', word2 = 'b')
+    assert 'ba' == Solution().mergeAlternately(word1 = 'b', word2 = 'a')
