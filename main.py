@@ -2,18 +2,23 @@ from collections import defaultdict
 
 
 class Solution:
-    def maxNumberOfBalloons(self, text: str) -> int:
-        interested_word = 'balloon'
-        interesting_letters = set(list(interested_word))
+    def rearrangeCharacters(self, s: str, target: str) -> int:
+        interesting_letters = set(list(target))
 
         d = defaultdict(int)
-        for letter in text:
+        for letter in s:
             if letter in interesting_letters:
                 d[letter] += 1
 
-        if len(d) != len(interesting_letters):
-            return 0
+        res = 0
+        while True:
+            for letter in target:
+                if letter not in d:
+                    return res
 
-        d['l'] = int(d['l'] / 2)
-        d['o'] = int(d['o'] / 2)
-        return min(d.values())
+                if d[letter] == 0:
+                    return res
+
+                d[letter] -= 1
+
+            res += 1
