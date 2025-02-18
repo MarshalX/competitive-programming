@@ -11,15 +11,9 @@ class Solution:
             if letter in interesting_letters:
                 d[letter] += 1
 
-        res = 0
-        while True:
-            for letter in interested_word:
-                if letter not in d:
-                    return res
+        if len(d) != len(interesting_letters):
+            return 0
 
-                if d[letter] == 0:
-                    return res
-
-                d[letter] -= 1
-
-            res += 1
+        d['l'] = int(d['l'] / 2)
+        d['o'] = int(d['o'] / 2)
+        return min(d.values())
