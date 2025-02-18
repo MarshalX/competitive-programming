@@ -2,22 +2,24 @@ from collections import defaultdict
 
 
 class Solution:
-    def isAnagram(self, s: str, t: str) -> bool:
+    def maxNumberOfBalloons(self, text: str) -> int:
+        interested_word = 'balloon'
+        interesting_letters = set(list(interested_word))
+
         d = defaultdict(int)
-        for letter in s:
-            d[letter] += 1
+        for letter in text:
+            if letter in interesting_letters:
+                d[letter] += 1
 
-        for letter in t:
-            if letter not in d:
-                return False
+        res = 0
+        while True:
+            for letter in interested_word:
+                if letter not in d:
+                    return res
 
-            if d[letter] > 0:
+                if d[letter] == 0:
+                    return res
+
                 d[letter] -= 1
-            else:
-                return False
 
-        for letters_count in d.values():
-            if letters_count != 0:
-                return False
-
-        return True
+            res += 1
