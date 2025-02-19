@@ -2,8 +2,19 @@ from typing import List
 
 
 class Solution:
-    def reverseString(self, s: List[str]) -> None:
-        last = len(s) - 1
-        for cur in range(len(s) // 2):
-            s[last], s[cur] = s[cur], s[last]
-            last -= 1
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        res = []
+
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            lsqr = nums[l]**2
+            rsqr = nums[r]**2
+
+            if rsqr >= lsqr:
+                res.append(rsqr)
+                r -= 1
+            else:
+                res.append(lsqr)
+                l += 1
+
+        return res[::-1]
