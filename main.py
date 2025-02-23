@@ -13,17 +13,10 @@ class Solution:
         if not root:
             return False
 
-        def _(node: Optional[TreeNode], curSum: int = 0):
-            if not node:
-                return False
+        if not root.left and not root.right:
+            return targetSum == root.val
 
-            curSum += node.val
-            if not node.left and not node.right:
-                return targetSum == curSum
-
-            return _(node.left, curSum) or _(node.right, curSum)
-
-        return _(root)
+        return self.hasPathSum(root.left, targetSum - root.val) or self.hasPathSum(root.right, targetSum - root.val)
 
 
 if __name__ == '__main__':
