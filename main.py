@@ -13,15 +13,10 @@ class Solution:
         if not root:
             return root
 
-        q = [root]
-        while q:
-            node = q.pop(0)
-            node.left, node.right = node.right, node.left
+        root.left, root.right = root.right, root.left
 
-            if node.left:
-                q.append(node.left)
-            if node.right:
-                q.append(node.right)
+        self.invertTree(root.left)
+        self.invertTree(root.right)
 
         return root
 
