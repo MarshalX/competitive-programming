@@ -1,20 +1,41 @@
-from typing import List
+from typing import Optional
+
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 
 
 class Solution:
-    def sortedSquares(self, nums: List[int]) -> List[int]:
-        res = []
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return root
 
-        l, r = 0, len(nums) - 1
-        while l <= r:
-            lsqr = nums[l]**2
-            rsqr = nums[r]**2
+        q = [root]
+        while q:
+            node = q.pop(0)
+            node.left, node.right = node.right, node.left
 
-            if rsqr >= lsqr:
-                res.append(rsqr)
-                r -= 1
-            else:
-                res.append(lsqr)
-                l += 1
+            if node.left:
+                q.append(node.left)
+            if node.right:
+                q.append(node.right)
 
-        return res[::-1]
+        return root
+
+
+if __name__ == '__main__':
+    Solution().invertTree(
+        TreeNode(4,
+            TreeNode(2,
+                TreeNode(1),
+                TreeNode(3)
+             ),
+            TreeNode(7,
+                TreeNode(6),
+                TreeNode(9)
+             )
+        )
+    )
