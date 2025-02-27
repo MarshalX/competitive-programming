@@ -1,18 +1,26 @@
-class MinStack:
-    def __init__(self):
-        self._stack = []
-        self._min = [float('inf')] * (10 ** 4)
+from collections import defaultdict
+from typing import List
 
-    def push(self, val: int) -> None:
-        self._stack.append(val)
-        self._min[len(self._stack)] = min(val, self._min[len(self._stack) - 1])
 
-    def pop(self) -> None:
-        self._stack.pop()
-        self._min[len(self._stack) + 1] = float('inf')
 
-    def top(self) -> int:
-        return self._stack[-1]
+class Solution:
+    def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
+        d = defaultdict(list)
+        for (f, t) in edges:
+            d[f].append(t)
+            d[t].append(f)
 
-    def getMin(self) -> int:
-        return self._min[len(self._stack)]
+        q = [source]
+        visited = {source,}
+        while q:
+            t = q.pop(0)
+
+            if t == destination:
+                return True
+
+            for e in d[t]:
+                if e not in visited:
+                    q.append(e)
+                    visited.add(e)
+
+        return False
