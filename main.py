@@ -1,26 +1,22 @@
-from collections import defaultdict
+import heapq
 from typing import List
 
+def _heappush_max(heap, item):
+    # https://discuss.python.org/t/make-max-heap-functions-public-in-heapq/16944/8
+    """Maxheap version of a heappush."""
+    heap.append(item)
+    heapq._siftdown_max(heap, 0, len(heap) - 1)
 
 
 class Solution:
-    def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
-        d = defaultdict(list)
-        for (f, t) in edges:
-            d[f].append(t)
-            d[t].append(f)
+    def lastStoneWeight(self, stones: List[int]) -> int:
+        heapq._heapify_max(stones)
 
-        q = [source]
-        visited = {source,}
-        while q:
-            t = q.pop(0)
+        while len(stones) > 1:
+            h1 = heapq._heappop_max(stones)
+            h2 = heapq._heappop_max(stones)
 
-            if t == destination:
-                return True
+            if h1 != h2:
+                _heappush_max(stones, abs(h1 - h2))
 
-            for e in d[t]:
-                if e not in visited:
-                    q.append(e)
-                    visited.add(e)
-
-        return False
+        return stones[0] if stones else 0
