@@ -1,22 +1,18 @@
-import heapq
-from typing import List
+class MinStack:
+    def __init__(self):
+        self._stack = []
+        self._min = []
 
-def _heappush_max(heap, item):
-    # https://discuss.python.org/t/make-max-heap-functions-public-in-heapq/16944/8
-    """Maxheap version of a heappush."""
-    heap.append(item)
-    heapq._siftdown_max(heap, 0, len(heap) - 1)
+    def push(self, val: int) -> None:
+        self._stack.append(val)
+        self._min.append(min(val, self._min[-1]) if self._min else val)
 
+    def pop(self) -> None:
+        self._stack.pop()
+        self._min.pop()
 
-class Solution:
-    def lastStoneWeight(self, stones: List[int]) -> int:
-        heapq._heapify_max(stones)
+    def top(self) -> int:
+        return self._stack[-1]
 
-        while len(stones) > 1:
-            h1 = heapq._heappop_max(stones)
-            h2 = heapq._heappop_max(stones)
-
-            if h1 != h2:
-                _heappush_max(stones, abs(h1 - h2))
-
-        return stones[0] if stones else 0
+    def getMin(self) -> int:
+        return self._min[-1]
