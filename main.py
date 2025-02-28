@@ -1,18 +1,16 @@
-class MinStack:
-    def __init__(self):
-        self._stack = []
-        self._min = []
+from typing import List
 
-    def push(self, val: int) -> None:
-        self._stack.append(val)
-        self._min.append(min(val, self._min[-1]) if self._min else val)
 
-    def pop(self) -> None:
-        self._stack.pop()
-        self._min.pop()
+class Solution:
+    def fizzBuzz(self, n: int) -> List[str]:
+        answer = [str(x) for x in range(1, n + 1)]
 
-    def top(self) -> int:
-        return self._stack[-1]
+        for i in range(1, n + 1):
+            if i % 3 == 0 and i % 5 == 0:
+                answer[i - 1] = 'FizzBuzz'
+            elif i % 3 == 0:
+                answer[i - 1] = 'Fizz'
+            elif i % 5 == 0:
+                answer[i - 1] = 'Buzz'
 
-    def getMin(self) -> int:
-        return self._min[-1]
+        return answer
