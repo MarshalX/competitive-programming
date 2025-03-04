@@ -1,39 +1,35 @@
-from typing import List
-import heapq
+from typing import Optional
+
+
+class Node:
+    def __init__(self, val = 0, neighbors = None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
 
 
 class Solution:
-    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
-        g = {i: set() for i in range(n)}
-        for time in times:
-            start, stop, weight = time
-            g[start - 1].add((weight, stop - 1))
+    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
+        if not node:
+            return None
 
-        dist = {n: float('inf') for n in g.keys()}
-        dist[k - 1] = 0
+        cloned_root_node = Node(node.val)
+        created_nodes = {node.val: cloned_root_node}
 
-        visited = set()
-        priority_queue = [(0, k - 1)]
-        while priority_queue:
-            cur_weight, cur_node = heapq.heappop(priority_queue)
-            visited.add(cur_node)
+        queue = [(cloned_root_node, node)]
+        visited = {node.val,}
+        while queue:
+            cloned_node, real_node = queue.pop(0)
+            for neighbor in real_node.neighbors:
+                if neighbor.val in created_nodes:
+                    neighbor_cloned_node = created_nodes[neighbor.val]
+                else:
+                    neighbor_cloned_node = Node(neighbor.val)
+                    created_nodes[neighbor.val] = neighbor_cloned_node
 
-            if cur_weight > dist[cur_node]:
-                continue
+                cloned_node.neighbors.append(neighbor_cloned_node)
 
-            for neighborhood_weight, neighborhood in g[cur_node]:
-                if neighborhood in visited:
-                    continue
+                if neighbor.val not in visited:
+                    queue.append((neighbor_cloned_node, neighbor))
+                    visited.add(neighbor.val)
 
-                new_dist = cur_weight + neighborhood_weight
-                if new_dist < dist[neighborhood]:
-                    dist[neighborhood] = new_dist
-
-                heapq.heappush(priority_queue, (new_dist, neighborhood))
-
-        return max(dist.values()) if len(visited) == n else -1
-
-
-if __name__ == '__main__':
-    print(Solution().networkDelayTime(times = [[2,1,1],[2,3,1],[3,4,1]], n = 4, k = 2))
-    print(Solution().networkDelayTime(times = [[1,2,1]], n = 2, k = 2))
+        return cloned_root_node
