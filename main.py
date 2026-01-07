@@ -2,8 +2,5 @@ from typing import List
 
 
 class Solution:
-    def absDifference(self, nums: List[int], k: int) -> int:
-        nums.sort()
-        s = sum(nums[:k])
-        l = sum(nums[-k:])
-        return abs(s - l)
+    def sortByReflection(self, nums: List[int]) -> List[int]:
+        return [n for _, n in sorted([(int(bin(n)[2::][::-1], 2), n) for n in sorted(nums)], key=lambda n: n[0])]
