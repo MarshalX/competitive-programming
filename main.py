@@ -1,3 +1,3 @@
 class Solution:
-    def largestEven(self, s: str) -> str:
-        return s.rstrip('1')
+    def reversePrefix(self, s: str, k: int) -> str:
+        return s[:k][::-1] + s[k:]
