@@ -1,3 +1,3 @@
 class Solution:
-    def reversePrefix(self, s: str, k: int) -> str:
-        return s[:k][::-1] + s[k:]
+    def mirrorDistance(self, n: int) -> int:
+        return abs(n - int(str(n)[::-1]))
