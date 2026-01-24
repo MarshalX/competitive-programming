@@ -9,21 +9,18 @@ class TreeNode(object):
 
 
 class Solution:
-    def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
-        self.prev_val, self.result = None, float("inf")
+    def isUnivalTree(self, root: Optional[TreeNode]) -> bool:
+        self.unique_val = None
 
-        def dfs(node):
+        def dfs(node: Optional[TreeNode]) -> bool:
             if node is None:
-                return
+                return True
 
-            dfs(node.left)
+            if self.unique_val is None:
+                self.unique_val = node.val
+            elif self.unique_val != node.val:
+                return False
 
-            if self.prev_val is not None:
-                self.result = min(self.result, node.val - self.prev_val)
+            return dfs(node.left) and dfs(node.right)
 
-            self.prev_val = node.val
-
-            dfs(node.right)
-
-        dfs(root)
-        return self.result
+        return dfs(root)
