@@ -9,7 +9,7 @@ class TreeNode(object):
 
 
 class Solution:
-    def minDiffInBST(self, root: Optional[TreeNode]) -> int:
+    def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
         self.prev_val, self.result = None, float("inf")
 
         def dfs(node):
