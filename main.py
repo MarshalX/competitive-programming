@@ -1,43 +1,38 @@
-from typing import List
+from typing import List, Tuple
 
 
 class Solution:
     def numEnclaves(self, grid: List[List[int]]) -> int:
-        visited = set()
-        islands = {}
-
         m, n = len(grid), len(grid[0])
+        visited = [[False] * n for _ in range(m)]
 
-        def solve(x, y, island_id: int):
-            if x < 0 or y < 0 or x > m - 1 or y > n - 1 or grid[x][y] == 0:
-                return True
+        def solve(x, y) -> Tuple[int, bool]:
+            if x < 0 or y < 0 or x >= m or y >= n:
+                return 0, True
+            if visited[x][y] or grid[x][y] == 0:
+                return 0, False
 
-            if (x, y) in visited:
-                return True
+            visited[x][y] = True
 
-            visited.add((x, y))
+            size = 1
+            invalid = x == 0 or x == m - 1 or y == 0 or y == n - 1
 
-            if islands[island_id] is not False:
-                islands[island_id] += 1
+            for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                sub_size, sub_invalid = solve(x + dx, y + dy)
+                size += sub_size
+                invalid = invalid or sub_invalid
 
-            solve(x + 1, y, island_id)
-            solve(x - 1, y, island_id)
-            solve(x, y + 1, island_id)
-            solve(x, y - 1, island_id)
+            return size, invalid
 
-            if x == 0 or x == m - 1 or y == 0 or y == n - 1:
-                islands[island_id] = False
-                return False
+        result = 0
+        for x in range(m):
+            for y in range(n):
+                if not visited[x][y] and grid[x][y] == 1:
+                    size, invalid = solve(x, y)
+                    if not invalid:
+                        result += size
 
-        island_id = 0
-        for x, row in enumerate(grid):
-            for y, cell in enumerate(row):
-                if (x, y) not in visited and cell == 1:
-                    islands[island_id] = 0
-                    solve(x, y, island_id)
-                    island_id += 1
-
-        return sum([cells for cells in islands.values() if cells])
+        return result
 
 
 if __name__ == "__main__":
