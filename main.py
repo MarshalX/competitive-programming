@@ -10,15 +10,13 @@ class TreeNode(object):
 
 class Solution:
     def isUnivalTree(self, root: Optional[TreeNode]) -> bool:
-        self.unique_val = None
+        self.unique_val = root.val
 
         def dfs(node: Optional[TreeNode]) -> bool:
             if node is None:
                 return True
 
-            if self.unique_val is None:
-                self.unique_val = node.val
-            elif self.unique_val != node.val:
+            if self.unique_val != node.val:
                 return False
 
             return dfs(node.left) and dfs(node.right)
